@@ -4,3 +4,7 @@ lux:
     profile_name: 'Lux_Luthor'
     email: "lux@luthor.it"
  
+lucius: 
+    first_name: "Lucius"
+    last_name: "Malfoy"
+    email: "lucius@malfoy.it"
