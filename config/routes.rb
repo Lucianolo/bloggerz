@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'profile/show'
+
   devise_for :users, :controllers => { registrations: 'registrations' }
   
   #Custom Routes , adding /register and /login .
