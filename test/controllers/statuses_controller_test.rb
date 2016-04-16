@@ -61,7 +61,14 @@ class StatusesControllerTest < ActionController::TestCase
     assert_redirected_to status_path(assigns(:status))
   end
 
-  test "should destroy status" do
+  test "should redirect status delete when not logged in" do
+    delete :destroy, id: @status
+    assert_response :redirect
+    assert_redirected_to new_user_session_path
+  end
+
+  test "should destroy status when logged in" do
+    sign_in users(:lux)
     assert_difference('Status.count', -1) do
       delete :destroy, id: @status
     end
