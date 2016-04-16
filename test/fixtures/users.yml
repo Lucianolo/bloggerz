@@ -8,3 +8,8 @@ lucius:
     first_name: "Lucius"
     last_name: "Malfoy"
     email: "lucius@malfoy.it"
+
+vitaletti:
+    first_name: "Andrea"
+    last_name: "Vitaletti"
+    email: "vitaletti@andrea.it"
