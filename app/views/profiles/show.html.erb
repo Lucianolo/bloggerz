@@ -1,11 +1,17 @@
+
 <div class="page-header">
     <div class="row">
+        <div class="span4">
+            <%= image_tag @user.gravatar_url %>
+        </div>
+        
         <div class="span5">
             <h1><%= @user.full_name %></h1>
+            <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn" %>
         </div>
-        <div class="span3 offset4">
-            <%= image_tag current_user.gravatar_url %>
-        </div>
+        
+        
+        
     </div>
 </div>
 

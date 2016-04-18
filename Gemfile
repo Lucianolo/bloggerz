@@ -30,6 +30,8 @@ gem 'simple_form'
 
 gem 'protected_attributes'
 
+gem 'state_machine'
+
 group :test do
   gem 'shoulda'
 end

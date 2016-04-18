@@ -6,6 +6,7 @@ class StatusesControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    sign_in users(:lux)
     get :index
     assert_response :success
     assert_not_nil assigns(:statuses)

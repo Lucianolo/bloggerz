@@ -21,7 +21,7 @@
         </ul>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
-            <li><%= link_to current_user.full_name, profile_path(current_user.profile_name) %></li>
+            <li><%= link_to current_user.full_name, profile_path(current_user) %></li>
             <li><%= link_to "Log Out", logout_path %></li>
           <% else %>
             <li><%= link_to "Register", register_path %></li>
@@ -36,9 +36,16 @@
   <div class="container">
     
     <% if flash[:notice] %>
-      <div class="alert alert-info">
+      <div class="alert alert-info>
         <button class="close" data-dismiss="alert">x</button>
         <%= flash[:notice] %>
+      </div>
+    <% end %>
+    
+    <% if flash[:success] %>
+      <div class="alert alert-success">
+        <button class="close" data-dismiss="alert">x</button>
+        <%= flash[:success] %>
       </div>
     <% end %>
     

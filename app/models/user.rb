@@ -29,6 +29,10 @@ class User < ActiveRecord::Base
     
     "https://gravatar.com/avatar/#{hash}"
   end
+  
+  def to_param
+    profile_name
+  end
  
 end
   

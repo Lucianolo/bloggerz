@@ -11,7 +11,9 @@
   <div class="status">
     <div class="row">
       <div class="span1">
-        <%= image_tag status.user.gravatar_url %>
+        <% if status %>
+          <%= link_to image_tag(status.user.gravatar_url), profile_path(status.user) %>
+        <% end %>
       </div>
       <div class="span7">
         <strong><%= status.user.full_name %></strong>

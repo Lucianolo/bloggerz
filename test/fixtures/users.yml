@@ -3,7 +3,8 @@ lux:
     last_name: "Luthor"
     profile_name: 'Lux_Luthor'
     email: "lux@luthor.it"
- 
+    encrypted_password: "$2a$10$qBi0nk0G8v/AMNvZKUUeIeoMOi4GHTlXweiSaI4oMOcdKvvCd0dYa"
+    
 lucius: 
     first_name: "Lucius"
     last_name: "Malfoy"
@@ -13,3 +14,4 @@ vitaletti:
     first_name: "Andrea"
     last_name: "Vitaletti"
     email: "vitaletti@andrea.it"
+    profile_name: "andrea_vit"
