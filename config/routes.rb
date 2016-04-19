@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  resources :books
   devise_for :users, :controllers => { registrations: 'registrations' }
   
   #Custom Routes , adding /register and /login .
@@ -14,7 +15,10 @@ Rails.application.routes.draw do
   get 'feed', to: 'statuses#index', as: :feed
   root to: 'statuses#index'
   
+  get 'notification', to: 'notifications#index'
+  
   get '/:id', to: 'profiles#show', as: 'profile'
+  
   
   
   resources :user_friendships

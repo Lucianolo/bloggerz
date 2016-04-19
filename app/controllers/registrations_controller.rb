@@ -1,5 +1,12 @@
 class RegistrationsController < Devise::RegistrationsController
 
+
+  #def create
+  #  super
+  #  UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
+  #send
+  
+  
   private
 
   def sign_up_params

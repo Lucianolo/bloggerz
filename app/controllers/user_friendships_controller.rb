@@ -24,6 +24,7 @@ class UserFriendshipsController < ApplicationController
             @user_friendship = current_user.user_friendships.new(friend: @friend)
             
             @user_friendship.save
+            #UserNotifier.friend_requested(@user_friendship).deliver_now
             flash[:success] = "You are now friends with #{@friend.full_name}"
             redirect_to profile_path(@friend)
         else

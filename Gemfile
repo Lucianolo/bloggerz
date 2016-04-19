@@ -30,7 +30,11 @@ gem 'simple_form'
 
 gem 'protected_attributes'
 
-gem 'state_machine'
+gem 'state_machines'
+
+gem 'pusher'
+
+gem 'sinatra'
 
 group :test do
   gem 'shoulda'

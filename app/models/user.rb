@@ -16,7 +16,13 @@ class User < ActiveRecord::Base
   
   has_many :statuses
   has_many :user_friendships
-  has_many :friends, through: :user_friendships
+  has_many :friends, through: :user_friendships 
+                      
+  #has_many :friends, -> { where(user_friendships: {status: 'accepted'}).order('first_name DESC') }, :through => :user_friendships
+  
+  
+  
+  after_create :send_welcome_mail
          
   def full_name
     first_name+" "+last_name
@@ -32,6 +38,12 @@ class User < ActiveRecord::Base
   
   def to_param
     profile_name
+  end
+  
+  private
+  
+  def send_welcome_mail
+    UserNotifier.welcome_email(self).deliver_now
   end
  
 end
