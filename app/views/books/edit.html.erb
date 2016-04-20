@@ -1,6 +1,14 @@
 <h1>Editing Book</h1>
+<%= simple_form_for(@book) do |f| %>
+  <div class="form-inputs">
+    
+  </div>
+  <%= f.input :description %>
 
-<%= render 'form' %>
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @book %> |
 <%= link_to 'Back', books_path %>

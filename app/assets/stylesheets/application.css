@@ -16,8 +16,12 @@
 
 body {
     padding-top : 40px;
+    background: linear-gradient(135deg, #f6e6b4 0%,#ed9017 100%);
 }
-
 .alert {
     margin-top: 10px;
+}
+
+.book h1{
+    margin-top:0;
 }

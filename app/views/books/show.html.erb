@@ -1,4 +1,37 @@
-<p id="notice"><%= notice %></p>
+<div class="book well">
+    <div class="row">
+        <div class="span2">
+            <%= link_to image_tag(@book.cover_uri), book_path(@book.id) %>
+        </div>
+        <div class="span4">
+            <div class="row">
+                <h1><span class="label label-info">Title </span></h1>
+                <strong><%= @book.title %></strong>
+            </div>
+            <br>
+            <div class="row">
+                <h1><span class="label label-info">Author </span></h1>
+                <strong><%= @book.author %></strong>
+            </div>
+        </div>
+        <div class="span4">
+            <div class="row">
+                <h1><span class="label label-info">ISBN </span></h1>
+                <strong><%= @book.isbn %></strong>
+            </div>
+            <br>
+            <div class="row">
+                <h1><span class="label label-info">Owner </span></h1>
+                <strong><%= User.find(@book.user_id).full_name %></strong>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="description well">
+    <hi><span class="label label-important">Description </span></hi>
+    <br><br>
+    <p><%= @book.description.html_safe %></p>
+</div>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>

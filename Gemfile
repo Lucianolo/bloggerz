@@ -36,6 +36,8 @@ gem 'pusher'
 
 gem 'sinatra'
 
+gem 'wikitext'
+
 group :test do
   gem 'shoulda'
 end

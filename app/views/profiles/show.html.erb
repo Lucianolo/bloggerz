@@ -8,19 +8,43 @@
         <div class="span5">
             <h1><%= @user.full_name %></h1>
             <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn" %>
+            <%= link_to "Add A Book", new_book_path, class: "btn" %>
         </div>
+        
         
         
         
     </div>
 </div>
 
-<% if @statuses %>
-    <% @statuses.each do |status| %>
-        <div class="well">
-            <%= status.content %> 
-            <hr />
-            <%= link_to time_ago_in_words(status.created_at), status_path(status) %> ago
+<% if @user.books %>
+
+ <% @user.books.each do |book| %>
+      <div class="book">
+        <div class="row well">
+          <div class="span2">
+            <%= link_to image_tag(book.cover_uri), book_path(book.id) %>
+          </div>
+          <div class="span6">
+            
+                <h1><span class="label label-info">Title </span></h1>
+                <strong><%= book.title %></strong>
+     
+            <br>
+           
+                <h1><span class="label label-info">Author </span></h1>
+                <strong><%= book.author %></strong>
+         
+            <div class="meta">
+              <%= link_to time_ago_in_words(book.created_at)+" ago", book %>
+              <span class="admin">
+                | <%= link_to "Edit", edit_book_path(book) %> |
+                <%= link_to "Delete", book, method: :delete, data: { confirm: "Are you sure you want to Delete this book?" } %>
+              </span>
+            </div>
+          </div>
         </div>
+      </div>
     <% end %>
+    
 <% end %>

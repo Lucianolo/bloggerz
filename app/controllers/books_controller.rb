@@ -1,3 +1,4 @@
+
 class BooksController < ApplicationController
   before_action :set_book, only: [:show, :edit, :update, :destroy]
 
@@ -24,10 +25,66 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(book_params)
+    
+    # Prendo in input dall'utente il codice ISBN
+    isbn = book_params[:isbn]
+    
+    # Inizializzo l'URI inserendo i'isbn e invio la richiesta
+    uri = URI('https://www.googleapis.com/books/v1/volumes?q=isbn:'+isbn+'&amp;language=it')
+    res = Net::HTTP.get_response(uri)
+    
+    # Parsing della risposta in JSON e prendo il campo ITEMS/VOLUMEINFO
+    items = JSON.parse(res.body)["items"][0]["volumeInfo"]
+    
+    # Salvo i valori che ci interessano in variabili di istanza (in modo da renderle accessibili anche dalla view, non è necessario ma potrebbe servire)
+    @title = items["title"]
+    @author = items["authors"][0]
+    # Per evitare errori in caso non ci sia l'immagine della copertina (in seguito si può cercare su altri siti)
+    if items.has_key?("imageLinks")
+      @cover = items["imageLinks"]["thumbnail"]
+    end
+    
+    # Debug info
+    puts @title
+    puts @description
+    
+    @description = items["description"]
+    
+    # I libri in italiano (la maggior parte almeno) non hanno descrizione su googleapi.com quindi in caso sia nil andiamo a cercarla su wikipedia
+    if @description.nil?
+      
+      uri2 = URI('https://it.wikipedia.org/w/api.php?action=query&titles='+@title+'&prop=revisions&rvprop=content&format=json&redirects=1')
+      rest = Net::HTTP.get_response(uri2)
+      
+      
+      
+      # Da rivedere eventualmente perchè in alcuni casi da errore (in particolare bisogna analizzare più risultati e vedere come è impostato il campo revisions)
+      page_id = JSON.parse(rest.body)["query"]["pages"].first
+      puts page_id[0]
+      if page_id[0]!="-1"
+        desc = page_id.last["revisions"][0]["*"]
+        @description = Wikitext::Parser.new.parse(desc)
+      
+        @description.sub! "{{div col}}" , ""
+        @description.sub! "{{div col end}}" , ""
+        @description.gsub! "{{" , ""
+        @description.gsub! "}}" , ""
+        @description.gsub! "|" , '<br>'
+      end
+    end
+    
+    puts book_params
+    
+    @book = current_user.books.new(book_params)
+    
+    
 
     respond_to do |format|
       if @book.save
+        if @description.nil?
+          @description = '<strong><a href="https://bloggerz-lucianolo.c9users.io/books/'+@book.id.to_s+'/edit">Add a description</a><strong>'
+        end
+        @book.update(author: @author, title: @title, description: @description, cover_uri: @cover)
         format.html { redirect_to @book, notice: 'Book was successfully created.' }
         format.json { render :show, status: :created, location: @book }
       else
@@ -41,7 +98,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1.json
   def update
     respond_to do |format|
-      if @book.update(book_params)
+      if @book.update(add_book_description)
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
         format.json { render :show, status: :ok, location: @book }
       else
@@ -69,6 +126,10 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.fetch(:book, {})
+      params.require(:book).permit(:user_id, :isbn)
+    end
+    
+    def add_book_description
+      params.require(:book).permit(:description)
     end
 end
