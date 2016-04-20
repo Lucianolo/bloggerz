@@ -23,10 +23,14 @@ class UserFriendshipsController < ApplicationController
             @friend = User.where(profile_name: params[:user_friendship][:friend_id]).first
             @user_friendship = current_user.user_friendships.new(friend: @friend)
             
-            @user_friendship.save
+            if @user_friendship.save
+                @user_friendship.update(state: "pending")
+            
+            
             #UserNotifier.friend_requested(@user_friendship).deliver_now
-            flash[:success] = "You are now friends with #{@friend.full_name}"
-            redirect_to profile_path(@friend)
+                flash[:success] = "You have sent a friends request to #{@friend.full_name}"
+                redirect_to profile_path(@friend)
+            end
         else
             flash[:error] = "Friend required"
             redirect_to root_path

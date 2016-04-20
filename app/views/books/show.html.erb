@@ -22,7 +22,7 @@
             <br>
             <div class="row">
                 <h1><span class="label label-info">Owner </span></h1>
-                <strong><%= User.find(@book.user_id).full_name %></strong>
+                <strong><%= link_to User.find(@book.user_id).full_name, profile_path(User.find(@book.user_id).profile_name) %></strong>
             </div>
         </div>
     </div>

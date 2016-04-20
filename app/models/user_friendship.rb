@@ -5,13 +5,13 @@ class UserFriendship < ActiveRecord::Base
     
     #State Machine ci permette di assegnare uno stato alla UserFriendship 
     # in modo tale da permettere a un utente di accettare o meno.
-    state_machine :state, initial: :pending do
-        after_transition on: :accept, do: :send_acceptance_email
-        
-        event :accept do
-            transition any => :accepted
-        end
-    end
+    #state_machine :state, initial: :pending do
+    #    after_transition on: :accept, do: :send_acceptance_email
+    #    
+    #    event :accept do
+    #        transition any => :accepted
+    #    end
+    #end
     
     
     # per inviare le mail di richiesta amicizia dobbiamo prima generare un mailer :
