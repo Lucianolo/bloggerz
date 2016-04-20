@@ -7,7 +7,10 @@
         
         <div class="span5">
             <h1><%= @user.full_name %></h1>
+            <!-- verifico di non essere nel mio profilo -->
+            <% if (current_user.id!=@user.id) %>
             <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn" %>
+            <% end %>
             <%= link_to "Add A Book", new_book_path, class: "btn" %>
         </div>
         

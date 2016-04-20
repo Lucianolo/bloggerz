@@ -39,6 +39,11 @@ class User < ActiveRecord::Base
   def to_param
     profile_name
   end
+
+  def self.search(search)
+    where("full_name LIKE ?", "%#{search}%") 
+    where("profile_name LIKE ?", "%#{search}%")
+  end
   
   private
   

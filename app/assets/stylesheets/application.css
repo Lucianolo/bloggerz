@@ -25,3 +25,15 @@ body {
 .book h1{
     margin-top:0;
 }
+
+.container {
+    padding-top: 0.5em;
+}
+
+#search {
+    margin-top: 0.5em;
+}
+.nav .btn {
+    margin-top: 0;
+    padding-left: 0.5em;
+}

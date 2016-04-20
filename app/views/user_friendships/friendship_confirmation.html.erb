@@ -3,17 +3,73 @@
         <div class="span4">
             <%= image_tag @user.gravatar_url %>
         </div>
-        
         <div class="span5">
-            <h1><%= @user.full_name %></h1>
-            <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn" %>
-            <%= link_to "Add A Book", new_book_path, class: "btn" %>
+            <h1>Friends</h1>
         </div>
-        
-        
-        
-        
     </div>
 </div>
 
-<% if @user.books %>
+<% if @friendships_friend %>
+    <% @friendships_friend.each do |friend| %>
+        <% if friend.state="accepted" %>
+            <div class="row well">
+                <div class="span2">
+                    <% if friend.user_id %>
+                        <%= link_to image_tag(User.find(friend.user_id).gravatar_url), profile_path(User.find(friend.user_id).profile_name) %>
+                    <% end %>
+                </div>
+                <div class="span4">
+                    <strong><%= User.find(friend.user_id).full_name %></strong>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+<% if @friendships_user %>
+    <% @friendships_user.each do |user| %>
+        <% if user.state="accepted" %>
+            <div class="row well">
+                <div class="span2">
+                    <% if user.friend_id %>
+                        <%= link_to image_tag(User.find(user.friend_id).gravatar_url), profile_path(User.find(user.friend_id).profile_name) %>
+                    <% end %>
+                </div>
+                <div class="span4">
+                    <strong><%= User.find(user.friend_id).full_name %></strong>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+
+
+<div class="page-header">
+    <div class="row">
+        <div class="span5">
+            <h1>Friends Requests</h1>
+        </div>
+    </div>
+</div>
+
+<% if @friendships_friend  %>
+    <% @friendships_friend.each do |request| %>
+        <% if request.state = "pending" %>
+            <div class="row well">
+                <div class="span2">
+                    <%= link_to image_tag(User.find(request.user_id).gravatar_url), profile_path(request.user_id) %>
+                </div>
+                <div class="span4">
+                    <h4><%= User.find(request.user_id).full_name %> Asked you to be Friends!</h4>
+                </div>
+                <div class="span2">
+                    <%= link_to "Accept", accept_friendship_path(request), class:"btn btn-success" %>
+                    <%= link_to "Decline", decline_friendship_path(request), class:"btn btn-danger" %>
+                </div>
+            </div>
+        <% end %>
+    <% end %>
+<% end %>
+
+

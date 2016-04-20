@@ -36,16 +36,22 @@
           GroupBooks.
         </a>
         <ul class="nav">
-          <li><%= link_to "All Statuses", feed_path %></li>
           <li><%= link_to "All Books", books_path %></li>
-          <span class="glyphicon glyphicon-log-in" id="logIcon"></span>
-          
+          <!-- barra di ricerca, aggiustare posizione -->
+          <li>
+          <%= form_tag search_path(:search), :method => 'get' do %>
+            <p>
+              <%= text_field_tag :search, params[:search] , placeholder: "User"%>
+              <%= submit_tag "Search", :name => nil , :class =>"btn btn-info" %>
+            </p>
+          <% end %>
+          </li>
         </ul>
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <li><%= link_to current_user.full_name, profile_path(current_user) %></li>
             <li><%= link_to "Log Out", logout_path %></li>
-            <li><%= link_to "Notifications", profile_path(current_user) %></li>
+            <li><%= link_to "Friends", friendships_path %></li>
             <li>
   <!-- TODO : aggiungere la notifica su questa icona   -->
               <span class="fa-stack fa-lg">

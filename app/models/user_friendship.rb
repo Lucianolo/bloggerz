@@ -18,6 +18,9 @@ class UserFriendship < ActiveRecord::Base
     # rails generate mailer user_notifier
     # Definiamo poi il metodo usato:
     
+
+
+    
     def send_request_email
         UserNotifier.friend_requested(self).deliver_now
     end

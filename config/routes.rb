@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
 
   resources :books
+  
+  get 'friends', to: 'user_friendships#show', as: :friendships
+  
+  get 'friends/accept/:id', to: 'user_friendships#accept', as: :accept_friendship
+  
+  get 'friends/decline/:id', to: 'user_friendships#decline', as: :decline_friendship
+  
+  get 'search-results/:id', to: 'profiles#index', as: :search
+  
+  
+  
   devise_for :users, :controllers => { registrations: 'registrations' }
+  
   
   #Custom Routes , adding /register and /login .
   devise_scope :user do
@@ -13,7 +25,7 @@ Rails.application.routes.draw do
   resources :statuses
   
   get 'feed', to: 'statuses#index', as: :feed
-  root to: 'statuses#index'
+  root to: 'books#index'
   
   get 'notification', to: 'notifications#index'
   
