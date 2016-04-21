@@ -38,6 +38,11 @@ gem 'sinatra'
 
 gem 'wikitext'
 
+gem 'carrierwave'
+
+gem 'image_magick'
+
+gem 'mini_magick'
 group :test do
   gem 'shoulda'
 end

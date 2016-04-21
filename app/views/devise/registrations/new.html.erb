@@ -1,11 +1,11 @@
 <div class="row">
   <div class="span6">
  
-    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "well"}) do |f| %>
+    <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "well", multipart: true}) do |f| %>
       <%= devise_error_messages! %>
       <fieldset>
+        <div class="text" style="color:#333333;">
         <legend>Sign up!</legend>
-        
         <%= f.input :first_name %>
         <%= f.input :last_name%>
         <%= f.input :profile_name %>
@@ -15,9 +15,16 @@
           <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
         <%= f.input :password_confirmation %>
+        <br>
+        <label>Profile Image</label>
+        <br>
+        <%= f.file_field :avatar %>
+        <%= f.hidden_field :avatar_cache %>
+        <br><br>
           
         <div class="actions">
-          <%= f.button :submit, "Sign up" %>
+          <%= f.button :submit, "Sign up", :class => 'btn btn-info' %>
+        </div>
         </div>
       </fieldset>
     <% end %>

@@ -1,6 +1,6 @@
 <div class="page-header">
   <div class="row">
-    <h1>Listing Books <%= link_to 'Share a Book!', new_book_path, {  :style =>'float:right;',:class => "btn btn-success" } %></h1>
+    <div class="profile_name">Listing Books </div> <%= link_to 'Share a Book!', new_book_path, {  :style =>'float:right;',:class => "btn btn-success" } %>
     
   </div>
 </div>
@@ -27,6 +27,3 @@
       </div>
     <% end %>
 
-<br>
-
-<%= link_to 'New Book', new_book_path %>

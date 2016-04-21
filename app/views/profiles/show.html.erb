@@ -2,16 +2,24 @@
 <div class="page-header">
     <div class="row">
         <div class="span4">
+          <% if User.where(id: @user.id, avatar: nil).present? %>
             <%= image_tag @user.gravatar_url %>
+          <% else %>
+            <%= image_tag @user.avatar  %>
+          <% end %>
         </div>
         
         <div class="span5">
-            <h1><%= @user.full_name %></h1>
+            <div class="profile_name"><%= @user.full_name %></div>
+            <br><br>
             <!-- verifico di non essere nel mio profilo -->
             <% if (current_user.id!=@user.id) %>
-            <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn" %>
+              <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
+            <% else %>
+              <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
             <% end %>
-            <%= link_to "Add A Book", new_book_path, class: "btn" %>
+            <br><br>
+            <%= link_to "Add A Book", new_book_path, class: "btn btn-danger" %>
         </div>
         
         
@@ -19,7 +27,6 @@
         
     </div>
 </div>
-
 <% if @user.books %>
 
  <% @user.books.each do |book| %>

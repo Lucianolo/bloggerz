@@ -2,6 +2,12 @@
 <html>
 <head>
   <title>GroupBooks</title>
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Rouge+Script:300,400,600,700&amp;lang=en" />
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Orienta:300,400,600,700&amp;lang=en" />
+
+  
+  
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
@@ -50,8 +56,8 @@
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <li><%= link_to current_user.full_name, profile_path(current_user) %></li>
-            <li><%= link_to "Log Out", logout_path %></li>
             <li><%= link_to "Friends", friendships_path %></li>
+            <li><%= link_to "Log Out", logout_path %></li>
             <li>
   <!-- TODO : aggiungere la notifica su questa icona   -->
               <span class="fa-stack fa-lg">

@@ -3112,8 +3112,14 @@ table th[class*="span"],
   min-height: 20px;
   padding: 19px;
   margin-bottom: 20px;
-  background-color: #f5f5f5;
-  border: 1px solid #e3e3e3;
+  background: #70e1f5; /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #70e1f5 , #ffd194); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #70e1f5 , #ffd194); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+          
+  border: 1px inset  #e3e3e3;
+	background-color: #fcfcfc;
+	/*padding: 4px;
+  border: 1px solid*/
   -webkit-border-radius: 4px;
      -moz-border-radius: 4px;
           border-radius: 4px;

@@ -9,9 +9,7 @@ Rails.application.routes.draw do
   get 'friends/decline/:id', to: 'user_friendships#decline', as: :decline_friendship
   
   get 'search-results/:id', to: 'profiles#index', as: :search
-  
-  
-  
+ 
   devise_for :users, :controllers => { registrations: 'registrations' }
   
   

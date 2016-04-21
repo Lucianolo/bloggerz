@@ -1,14 +1,14 @@
-<h1>Editing Book</h1>
-<%= simple_form_for(@book) do |f| %>
-  <div class="form-inputs">
-    
-  </div>
-  <%= f.input :description %>
+<div class="profile_name" style="padding-top:1em;">Editing Book</div>
+<br><br>
+<div class="text">
+  <%= simple_form_for(@book) do |f| %>
+    <%= f.input :description, :style => 'background-color:#333333;' %>
+    <div class="actions">
+      <%= f.button :submit , :class => 'btn btn-info'%>
+    </div>
+  <% end %>
+  <%= link_to 'Show', @book %> |
+  <%= link_to 'Back', books_path %>
+ </div>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
 
-<%= link_to 'Show', @book %> |
-<%= link_to 'Back', books_path %>

@@ -1,20 +1,25 @@
-<div class="header">
-    <h1>Search Results</h1>
+<div class="page-header">
+    <div class="profile_name">Search Results</div>
 </div>
 
+<div class="text">
 <% if @users.present? %>
     <% @users.each do |user| %>
       <div class="user">
         <div class="row">
-          <div class="span1">
+          <div class="span2">
             <% if user %>
               <%= link_to image_tag(user.gravatar_url), profile_path(user.profile_name) %>
             <% end %>
           </div>
-          <div class="span7">
-            <strong><%= user.full_name %></strong>
+          <div class="span2" style="padding-top:1em;">
+            <strong><%= link_to user.full_name, profile_path(user.profile_name) %></strong>
+          </div>
         </div>
+      </div>
+      <hr>
     <% end %>
 <% else %>
   <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
 <% end %>
+</div>
