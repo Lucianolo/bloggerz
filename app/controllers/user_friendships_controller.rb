@@ -19,19 +19,19 @@ class UserFriendshipsController < ApplicationController
     end
     
     def create
-        if UserFriendship.where(user_id: current_user, friend_id: params[:friend_id]).any? || UserFriendship.where(user_id: params[:friend_id], friend_id: current_user).any?
-            flash[:error] = "You already have added this user."
-            redirect_to current_user
-        else
         
+        @friend = User.where(profile_name: params[:user_friendship][:friend_id]).first
+        
+        # In caso un utente sia già tra le amicizie questo controllo impedisce di inviare una nuova richiesta
+        if UserFriendship.where(user_id: current_user, friend_id: @friend).any? || UserFriendship.where(user_id: @friend, friend_id: current_user).any?
+            flash[:notice] = "You already have added this user."
+            redirect_to profile_path(current_user.profile_name)
+            
+        else
             if params[:user_friendship] && params[:user_friendship].has_key?(:friend_id)
-                @friend = User.where(profile_name: params[:user_friendship][:friend_id]).first
                 @user_friendship = current_user.user_friendships.new(friend: @friend)
-                
                 if @user_friendship.save
                     @user_friendship.update(state: "pending")
-                
-                
                 #UserNotifier.friend_requested(@user_friendship).deliver_now
                     flash[:success] = "You have sent a friends request to #{@friend.full_name}"
                     redirect_to profile_path(@friend)
@@ -45,10 +45,11 @@ class UserFriendshipsController < ApplicationController
     
     def show
         @user = current_user
-        @user.full_name
+      
         if @user
-            @friendships_friend = UserFriendship.where(friend_id: @user)
-            @friendships_user = UserFriendship.where(user_id: @user)
+            @friendships_requested = UserFriendship.where(friend_id: current_user.id, state: "pending")
+            @actual_friendships_user = UserFriendship.where(user_id: current_user.id, state: "accepted")
+            @actual_friendships_friend = UserFriendship.where(friend_id: current_user.id, state: "accepted")
             render action: :friendship_confirmation
         else
             render file: 'public/404', status: 404, formats: [:html]

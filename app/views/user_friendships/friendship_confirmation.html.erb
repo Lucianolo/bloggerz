@@ -9,9 +9,8 @@
     </div>
 </div>
 
-<% if @friendships_friend %>
-    <% @friendships_friend.each do |friend| %>
-        <% if friend.state="accepted" %>
+<% if @actual_friendships_friend %>
+    <% @actual_friendships_friend.each do |friend| %>
             <div class="row well">
                 <div class="span2">
                     <% if friend.user_id %>
@@ -22,13 +21,11 @@
                     <strong><%= User.find(friend.user_id).full_name %></strong>
                 </div>
             </div>
-        <% end %>
     <% end %>
 <% end %>
 
-<% if @friendships_user %>
-    <% @friendships_user.each do |user| %>
-        <% if user.state="accepted" %>
+<% if @actual_friendships_user %>
+    <% @actual_friendships_user.each do |user| %>
             <div class="row well">
                 <div class="span2">
                     <% if user.friend_id %>
@@ -39,7 +36,6 @@
                     <strong><%= User.find(user.friend_id).full_name %></strong>
                 </div>
             </div>
-        <% end %>
     <% end %>
 <% end %>
 
@@ -53,9 +49,8 @@
     </div>
 </div>
 
-<% if @friendships_friend  %>
-    <% @friendships_friend.each do |request| %>
-        <% if request.state = "pending" %>
+<% if @friendships_requested  %>
+    <% @friendships_requested.each do |request| %>
             <div class="row well">
                 <div class="span2">
                     <%= link_to image_tag(User.find(request.user_id).gravatar_url), profile_path(request.user_id) %>
@@ -68,7 +63,6 @@
                     <%= link_to "Decline", decline_friendship_path(request), class:"btn btn-danger" %>
                 </div>
             </div>
-        <% end %>
     <% end %>
 <% end %>
 
