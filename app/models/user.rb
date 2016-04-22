@@ -26,14 +26,13 @@ class User < ActiveRecord::Base
   after_create :send_welcome_mail
          
   def full_name
-    first_name+" "+last_name
+    first_name.capitalize+" "+last_name.capitalize
   end
   
   def gravatar_url
     stripped_email = email.strip
     downcased_email = stripped_email.downcase
     hash = Digest::MD5.hexdigest(downcased_email)
-    
     "https://gravatar.com/avatar/#{hash}"
   end
   

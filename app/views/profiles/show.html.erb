@@ -5,7 +5,7 @@
           <% if User.where(id: @user.id, avatar: nil).present? %>
             <%= image_tag @user.gravatar_url %>
           <% else %>
-            <%= image_tag @user.avatar  %>
+            <%= image_tag @user.avatar_url(:regular)  %>
           <% end %>
         </div>
         

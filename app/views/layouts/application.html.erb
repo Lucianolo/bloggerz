@@ -6,8 +6,6 @@
   <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Rouge+Script:300,400,600,700&amp;lang=en" />
   <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Orienta:300,400,600,700&amp;lang=en" />
-  <link rel="stylesheet" href="css/animations.css">
-  
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
@@ -35,43 +33,49 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container-fluid">
+  
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
       <div class="container">
-        
-        <a class="brand" href="#">
-          GroupBooks.
-        </a>
-        <ul class="nav">
-          <li><%= link_to "All Books", books_path %></li>
-          <!-- barra di ricerca, aggiustare posizione -->
-          <li>
-          <%= form_tag search_path(:search), :method => 'get' do %>
-            <p>
-              <%= text_field_tag :search, params[:search] , placeholder: "User"%>
-              <%= submit_tag "Search", :name => nil , :class =>"btn btn-info" %>
-            </p>
-          <% end %>
-          </li>
-        </ul>
-        <ul class="nav pull-right">
-          <% if user_signed_in? %>
-            <li><%= link_to current_user.full_name, profile_path(current_user) %></li>
-            <li><%= link_to "Friends", friendships_path %></li>
-            <li><%= link_to "Log Out", logout_path %></li>
-            <li>
-  <!-- TODO : aggiungere la notifica su questa icona   -->
-              <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
-              </span>
-            </li>
-          <% else %>
-            <li><%= link_to "Register", register_path %></li>
-            <li><%= link_to "Log In", login_path %></li>
-          <% end %>
-        </ul>
-        
+        <div class="row">
+            <a class="brand" href="#">
+              GroupBooks.
+            </a>
+            <div class="col-md-6">
+              <ul class="nav">
+                  <li><%= link_to "All Books", books_path %></li>
+                  <!-- barra di ricerca, aggiustare posizione -->
+                  <li>
+                  <%= form_tag search_path(:search), :method => 'get' do %>
+                    <p>
+                      <%= text_field_tag :search, params[:search] , placeholder: "User"%>
+                      <%= submit_tag "Search", :name => nil , :class =>"btn btn-info" %>
+                    </p>
+                  <% end %>
+                  </li>
+              </ul>
+            </div>
+            <div class="col-md-6">
+              <ul class="nav pull-right">
+                <% if user_signed_in? %>
+                  <li><%= link_to current_user.full_name, profile_path(current_user) %></li>
+                  <li><%= link_to "Friends", friendships_path %></li>
+                  <li><%= link_to "Log Out", logout_path %></li>
+                  <li>
+        <!-- TODO : aggiungere la notifica su questa icona   -->
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
+                    </span>
+                  </li>
+                <% else %>
+                  <li><%= link_to "Register", register_path %></li>
+                  <li><%= link_to "Log In", login_path %></li>
+                <% end %>
+              </ul>
+            </div>
+        </div>
       </div>
     </div>
   </div>
@@ -102,7 +106,7 @@
     <%= yield %>
 
   </div>
-  
+</div>
 <script>
 	$(window).scroll(function() {
 		$('#book').each(function(){
