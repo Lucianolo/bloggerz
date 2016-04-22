@@ -27,11 +27,15 @@
         
     </div>
 </div>
-<% if @user.books %>
 
- <% @user.books.each do |book| %>
-      <div class="book">
-        <div class="row well">
+<!-- Ordino i libri per data di aggiunta (ultimi per primi) , eventualmente da integrare nel controller in Show -->
+
+<% @user_books = Book.where(user_id: @user).order("created_at DESC") %>
+<% if @user_books %>
+
+ <% @user_books.each do |book| %>
+      <div>
+        <div id="book" class="row well slideUp">
           <div class="span2">
             <%= link_to image_tag(book.cover_uri), book_path(book.id) %>
           </div>
@@ -44,7 +48,8 @@
            
                 <h1><span class="label label-info">Author </span></h1>
                 <strong><%= book.author %></strong>
-         
+                
+            <br><br>
             <div class="meta">
               <%= link_to time_ago_in_words(book.created_at)+" ago", book %>
               <span class="admin">

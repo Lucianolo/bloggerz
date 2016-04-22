@@ -6,24 +6,43 @@
 </div>
 
     <% @books.each do |book| %>
-      <div class="book">
-        <div class="row well">
+      <div>
+        <div id="book" class="row well slideUp">
           <div class="span2">
             <%= link_to image_tag(book.cover_uri), book_path(book.id) %>
           </div>
-          <div class="span6">
-            <strong><%= book.title %></strong>
-            <p><%= book.author %></p>
-            <p>Added by <%= User.find(book.user_id).full_name %>.</p>
+          <div class="span6" style="padding:2em;">
+            <div style="white-space:nowrap">
+            <span class="label label-info">Title </span>
+            <strong style="padding-left:1em;"><%= book.title %></strong>
+            </div>
+            <br>
+            <div style="white-space:nowrap">
+            <span class="label label-info">Author </span>
+            <strong style="padding-left:1em;"><%= book.author %></strong>
+            </div>
+            <br>
+            <div style="white-space:nowrap">
+            <span class="label label-info">Owner </span>
+            <strong style="padding-left:1em;"><%= User.find(book.user_id).full_name %>.</strong>
+            </div>
+            <br>
             <div class="meta">
               <%= link_to time_ago_in_words(book.created_at)+" ago", book %>
-              <span class="admin">
-                | <%= link_to "Edit", edit_book_path(book) %> |
-                <%= link_to "Delete", book, method: :delete, data: { confirm: "Are you sure you want to Delete this book?" } %>
-              </span>
+              <% if current_user %>
+                <% if book.user_id == current_user.id %>
+                  <span class="admin">
+                    | <%= link_to "Edit", edit_book_path(book) %> |
+                    <%= link_to "Delete", book, method: :delete, data: { confirm: "Are you sure you want to Delete this book?" } %>
+                  </span>
+                <% end %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
     <% end %>
+    
+    
+
 
