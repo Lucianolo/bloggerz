@@ -6,6 +6,13 @@ class RegistrationsController < Devise::RegistrationsController
     UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
   end
   
+  def destroy
+    super
+    Book.where(user_id: @user).delete_all
+    UserFriendship.where(user_id: @user).delete_all
+    UserFriendship.where(friend_id: @user).delete_all
+  end
+  
 
   private
 
