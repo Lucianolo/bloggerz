@@ -33,7 +33,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-<div class="container-fluid">
+<div class="container">
   
   <div class="navbar navbar-fixed-top">
     <div class="navbar-inner">
@@ -44,9 +44,20 @@
             </a>
             <div class="col-md-6">
               <ul class="nav">
+                
                   <li><%= link_to "All Books", books_path %></li>
-                  <!-- barra di ricerca, aggiustare posizione -->
+                  
+                  <!-- pulsante per aggiungere libri -->
                   <li>
+                    <%= link_to new_book_path do %>
+                    
+                      <i class="fa fa-plus fa-lg" aria-hidden="true" ></i>
+                  
+                    <% end %>
+                  </li>
+                  
+                  <!-- barra di ricerca -->
+                  <li style="padding-left:1em; padding-bottom:0.5em;">
                   <%= form_tag search_path(:search), :method => 'get' do %>
                     <p>
                       <%= text_field_tag :search, params[:search] , placeholder: "User"%>
@@ -54,6 +65,7 @@
                     </p>
                   <% end %>
                   </li>
+                  
               </ul>
             </div>
             <div class="col-md-6">
@@ -80,8 +92,6 @@
     </div>
   </div>
   
-  <div class="container">
-    
     <% if flash[:notice] %>
       <div class="alert alert-info">
         <button class="close" data-dismiss="alert">x</button>

@@ -1,41 +1,49 @@
 
-<div class="page-header">
-    <div class="row">
-        <div class="span4">
+        
+      <div class="row" style="display: inline; margin-bottom:0;">
+        <span class="col-sm-4">
           <% if User.where(id: @user.id, avatar: nil).present? %>
             <%= image_tag @user.gravatar_url %>
           <% else %>
             <%= image_tag @user.avatar_url(:regular)  %>
           <% end %>
-        </div>
-        
-        <div class="span5">
-            <div class="profile_name"><%= @user.full_name %></div>
-            <br><br>
+        </span>
+        <span class="col-sm-4 profile_name"><%= @user.full_name %></span>
+        <span class="col-sm-4 pull-right">
+            
+            
             <!-- verifico di non essere nel mio profilo -->
-            <% if (current_user.id!=@user.id) %>
-              <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
-            <% else %>
-              <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
-            <% end %>
-            <br><br>
-            <%= link_to "Add A Book", new_book_path, class: "btn btn-danger" %>
-        </div>
+            
+              <% if (current_user!=nil && current_user.id!=@user.id) %>
+            
+                <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
+            
+              <% else %>
+                <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
+              <% end %>
+            
         
+            
         
+            <!--%= link_to "Add A Book", new_book_path, class: "btn btn-danger" %-->
+          
+        </span>
         
-        
-    </div>
-</div>
+
+      </div>
+
 
 <!-- Ordino i libri per data di aggiunta (ultimi per primi) , eventualmente da integrare nel controller in Show -->
-
+<div class="container" style="padding-top:0;">
+     
 <% @user_books = Book.where(user_id: @user).order("created_at DESC") %>
 <% if @user_books %>
 
  <% @user_books.each do |book| %>
-      <div>
+     
+        <hr>
         <div id="book" class="row well slideUp">
+          
           <div class="span2">
             <%= link_to image_tag(book.cover_uri), book_path(book.id) %>
           </div>
@@ -59,7 +67,8 @@
             </div>
           </div>
         </div>
-      </div>
+      
     <% end %>
     
 <% end %>
+</div>
