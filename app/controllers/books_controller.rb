@@ -38,11 +38,9 @@ class BooksController < ApplicationController
         duplicate_flag=true
       end
     end
-    
-    
-    
+
     if duplicate_flag
-      flash.alert = "You already added this book, check your Books list!"
+      flash[:alert] = "You already added this book, check your Books list!"
       redirect_to profile_path(current_user.profile_name)
     else
       
