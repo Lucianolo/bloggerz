@@ -30,71 +30,88 @@ class BooksController < ApplicationController
     # Prendo in input dall'utente il codice ISBN
     isbn = book_params[:isbn]
     
-    # Inizializzo l'URI inserendo i'isbn e invio la richiesta
-    uri = URI('https://www.googleapis.com/books/v1/volumes?q=isbn:'+isbn+'&amp;language=it')
-    res = Net::HTTP.get_response(uri)
-    count = JSON.parse(res.body)["totalItems"]
-    if count==0
-      render file: 'public/404', status: 404, formats: [:html]
+    # Controllo che il libro non sia già presente nella lista dei libri aggiunti dall utente
+    duplicate_flag = false
+    
+    current_user.books.each do |book|
+      if book.isbn == isbn
+        duplicate_flag=true
+      end
+    end
+    
+    
+    
+    if duplicate_flag
+      flash.alert = "You already added this book, check your Books list!"
+      redirect_to profile_path(current_user.profile_name)
     else
-      # Parsing della risposta in JSON e prendo il campo ITEMS/VOLUMEINFO
-      items = JSON.parse(res.body)["items"][0]["volumeInfo"]
-    
-      # Salvo i valori che ci interessano in variabili di istanza (in modo da renderle accessibili anche dalla view, non è necessario ma potrebbe servire)
-      @title = items["title"]
-      @author = items["authors"][0]
-      # Per evitare errori in caso non ci sia l'immagine della copertina (in seguito si può cercare su altri siti)
-      if items.has_key?("imageLinks")
-        @cover = items["imageLinks"]["thumbnail"]
-      end
-    
-      # Debug info
-      puts @title
-      puts @description
-    
-      @description = items["description"]
-    
-      # I libri in italiano (la maggior parte almeno) non hanno descrizione su googleapi.com quindi in caso sia nil andiamo a cercarla su wikipedia
-      if @description.nil?
       
-        uri2 = URI('https://it.wikipedia.org/w/api.php?action=query&titles='+@title+'&prop=revisions&rvprop=content&format=json&redirects=1')
-        rest = Net::HTTP.get_response(uri2)
+      # Inizializzo l'URI inserendo i'isbn e invio la richiesta
+      uri = URI('https://www.googleapis.com/books/v1/volumes?q=isbn:'+isbn+'&amp;language=it')
+      res = Net::HTTP.get_response(uri)
+      count = JSON.parse(res.body)["totalItems"]
+      if count==0
+        render file: 'public/404', status: 404, formats: [:html]
+      else
+        # Parsing della risposta in JSON e prendo il campo ITEMS/VOLUMEINFO
+        items = JSON.parse(res.body)["items"][0]["volumeInfo"]
       
-      
-      
-      # Da rivedere eventualmente perchè in alcuni casi da errore (in particolare bisogna analizzare più risultati e vedere come è impostato il campo revisions)
-        page_id = JSON.parse(rest.body)["query"]["pages"].first
-        puts page_id
-        puts page_id[0]
-        if page_id[0]!="-1"
-          desc = page_id.last["revisions"][0]["*"]
-        
-          # La response di Wikipedia è in WikiText (formato loro) quindi uso una gem (Wikitext) per parsare il contenuto in formato leggibile
-          @description = Wikitext::Parser.new.parse(desc)
-        
-          # Alcuni caratteri non vengono analizzati dal parser quindi vanno sostituiti manualmente almeno per ora.
-          @description.sub! "{{div col}}" , ""
-          @description.sub! "{{div col end}}" , ""
-          @description.gsub! "{{" , ""
-          @description.gsub! "}}" , ""
-          @description.gsub! "|" , '<br>'
+        # Salvo i valori che ci interessano in variabili di istanza (in modo da renderle accessibili anche dalla view, non è necessario ma potrebbe servire)
+        @title = items["title"]
+        @author = items["authors"][0]
+        # Per evitare errori in caso non ci sia l'immagine della copertina (in seguito si può cercare su altri siti)
+        if items.has_key?("imageLinks")
+          @cover = items["imageLinks"]["thumbnail"]
         end
-      end
-      @book = current_user.books.new(book_params)
-    
-    
-
-      respond_to do |format|
-        if @book.save
-          if @description.nil?
-            @description = '<strong><a href="https://bloggerz-lucianolo.c9users.io/books/'+@book.id.to_s+'/edit">Add a description</a><strong>'
+      
+        # Debug info
+        puts @title
+        puts @description
+      
+        @description = items["description"]
+      
+        # I libri in italiano (la maggior parte almeno) non hanno descrizione su googleapi.com quindi in caso sia nil andiamo a cercarla su wikipedia
+        if @description.nil?
+        
+          uri2 = URI('https://it.wikipedia.org/w/api.php?action=query&titles='+@title+'&prop=revisions&rvprop=content&format=json&redirects=1')
+          rest = Net::HTTP.get_response(uri2)
+        
+        
+        
+        # Da rivedere eventualmente perchè in alcuni casi da errore (in particolare bisogna analizzare più risultati e vedere come è impostato il campo revisions)
+          page_id = JSON.parse(rest.body)["query"]["pages"].first
+          puts page_id
+          puts page_id[0]
+          if page_id[0]!="-1"
+            desc = page_id.last["revisions"][0]["*"]
+          
+            # La response di Wikipedia è in WikiText (formato loro) quindi uso una gem (Wikitext) per parsare il contenuto in formato leggibile
+            @description = Wikitext::Parser.new.parse(desc)
+          
+            # Alcuni caratteri non vengono analizzati dal parser quindi vanno sostituiti manualmente almeno per ora.
+            @description.sub! "{{div col}}" , ""
+            @description.sub! "{{div col end}}" , ""
+            @description.gsub! "{{" , ""
+            @description.gsub! "}}" , ""
+            @description.gsub! "|" , '<br>'
           end
-          @book.update(author: @author, title: @title, description: @description, cover_uri: @cover)
-          format.html { redirect_to @book, notice: 'Book was successfully created.' }
-          format.json { render :show, status: :created, location: @book }
-        else
-          format.html { render :new }
-          format.json { render json: @book.errors, status: :unprocessable_entity }
+        end
+        @book = current_user.books.new(book_params)
+      
+      
+  
+        respond_to do |format|
+          if @book.save
+            if @description.nil?
+              @description = '<strong><a href="https://bloggerz-lucianolo.c9users.io/books/'+@book.id.to_s+'/edit">Add a description</a><strong>'
+            end
+            @book.update(author: @author, title: @title, description: @description, cover_uri: @cover)
+            format.html { redirect_to @book, notice: 'Book was successfully created.' }
+            format.json { render :show, status: :created, location: @book }
+          else
+            format.html { render :new }
+            format.json { render json: @book.errors, status: :unprocessable_entity }
+          end
         end
       end
     end
