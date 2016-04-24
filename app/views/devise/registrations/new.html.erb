@@ -6,15 +6,15 @@
       <fieldset>
         <div class="text" style="color:#333333;">
         <legend>Sign up!</legend>
-        <%= f.input :first_name %>
-        <%= f.input :last_name%>
-        <%= f.input :profile_name %>
-        <%= f.input :email %>
-        <%= f.input :password %>
+        <%= f.input :first_name , label: false, placeholder: "First Name" %>
+        <%= f.input :last_name , label: false, placeholder: "Last Name"%>
+        <%= f.input :profile_name , label: false, placeholder: "Profile Name" %>
+        <%= f.input :email , label: false, placeholder: "Email" %>
+        <%= f.input :password , label: false, placeholder: "Password" %>
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
         <% end %><br />
-        <%= f.input :password_confirmation %>
+        <%= f.input :password_confirmation , label: false, placeholder: "Repeat Password" %>
         <br>
         <label>Profile Image</label>
         <br>
