@@ -8,8 +8,11 @@
       <div class="user">
         <div class="row">
           <div class="span2">
-            <% if user %>
-              <%= link_to image_tag(user.gravatar_url), profile_path(user.profile_name) %>
+            
+            <% if User.where(id: user, avatar: nil).present? %>
+              <%= image_tag image_tag(User.find(user).gravatar_url) %>
+            <% else %>
+              <%= image_tag User.find(user).avatar_url(:thumb)  %>
             <% end %>
           </div>
           <div class="span2" style="padding-top:1em;">
