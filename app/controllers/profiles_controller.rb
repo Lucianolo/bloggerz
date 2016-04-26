@@ -1,4 +1,8 @@
 class ProfilesController < ApplicationController
+  
+  # Prima di mostrare la un profilo o i risultati della ricerca utenti verifichiamo che l'utente sia loggato
+  before_filter :authenticate_user!, only: [:index, :show]
+  
   def show
     @user = User.find_by_profile_name(params[:id])
     if @user

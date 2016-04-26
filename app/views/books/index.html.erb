@@ -22,10 +22,14 @@
             <strong style="padding-left:1em;"><%= book.author %></strong>
             </div>
             <br>
-            <div style="white-space:nowrap">
-            <span class="label label-important">Owner </span>
-            <strong style="padding-left:1em;"><%= User.find(book.user_id).full_name %>.</strong>
-            </div>
+            
+            <!-- Prima di mostrare il proprietario del libro controlliamo che l'utente sia loggato -->
+            <% if user_signed_in? %>
+              <div style="white-space:nowrap">
+              <span class="label label-important">Owner </span>
+              <strong style="padding-left:1em;"><%= User.find(book.user_id).full_name %>.</strong>
+              </div>
+            <% end %>
             <br>
             <div class="meta">
               <%= link_to time_ago_in_words(book.created_at)+" ago", book %>
