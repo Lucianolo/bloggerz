@@ -1,8 +1,10 @@
+require 'random_word_generator'
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :omniauthable, :omniauth_providers => [:facebook]
          
   mount_uploader :avatar, AvatarUploader
   
@@ -23,8 +25,25 @@ class User < ActiveRecord::Base
   
   has_many :books
   
-  after_create :send_welcome_mail
+  #after_create :send_welcome_mail
          
+  
+  def self.from_omniauth(auth)
+      where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
+        user.provider = auth.provider
+        user.uid = auth.uid
+        user.email = auth.info.email
+        first_name = auth.info.name.partition(" ").first
+        last_name = auth.info.name.partition(" ").last
+        user.avatar = auth.info.image
+        user.first_name = first_name
+        user.last_name = last_name
+        user.profile_name = first_name+"_"+last_name
+        user.password = RandomWordGenerator.composed(2, 10, '_')
+      end
+  end
+  
+  
   def full_name
     first_name.capitalize+" "+last_name.capitalize
   end
@@ -43,12 +62,6 @@ class User < ActiveRecord::Base
   def self.search(search)
     where("full_name LIKE ?", "%#{search}%") 
     where("profile_name LIKE ?", "%#{search}%")
-  end
-  
-  private
-  
-  def send_welcome_mail
-    UserNotifier.welcome_email(self).deliver_now
   end
  
 end

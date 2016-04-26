@@ -4,10 +4,11 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <h1>Welcome to Bloggerz!, <%= @user.first_name %></h1>
+    <h1>Welcome to GroupBooks! , <%= @user.first_name %></h1>
     <p>
       You have successfully signed up ,
       your username is: <%= @user.profile_name %>.<br>
+      your password is: <strong><%= @user.password %> </strong>, change it as soon as possible! <br>
     </p>
     <p>
       To login to the site, just follow this link: <%= @url %>.

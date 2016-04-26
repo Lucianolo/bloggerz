@@ -1,12 +1,13 @@
 class UserNotifier < ActionMailer::Base
     
-    default from: 'luciano.ursache@gmail.com'
+    default from: 'groupbooooks@gmail.com'
  
     def welcome_email(user)
         @user = user
         @url  = 'https://bloggerz-lucianolo.c9users.io/login'
-        mail(to: @user.email, subject: 'Welcome to Bloggerz!')
+        mail(to: @user.email, subject: 'Welcome to GroupBooks!')
     end
+    
     
     def friend_requested(user_friendship_id)
         

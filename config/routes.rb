@@ -10,7 +10,7 @@ Rails.application.routes.draw do
   
   get 'search-results/:id', to: 'profiles#index', as: :search
  
-  devise_for :users, :controllers => { registrations: 'registrations' }
+  devise_for :users, :controllers => { registrations: 'registrations' , omniauth_callbacks: 'callbacks'}
   
   
   #Custom Routes , adding /register and /login .
