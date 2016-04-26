@@ -240,7 +240,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
   
-  config.omniauth :facebook, "1054415251298042", "e6c2c948aa00afc2429df70952377d9c" ,scope: 'email', info_fields: 'email, name '
+  config.omniauth :facebook, "1054415251298042", "e6c2c948aa00afc2429df70952377d9c" ,scope: 'email', info_fields: 'email, name, image '
   
   
   # ==> Warden configuration
