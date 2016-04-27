@@ -1,6 +1,17 @@
 Rails.application.routes.draw do
 
-  resources :books
+ 
+  
+  put '/books/:id/like', to: 'books#like', as: :like_book
+  put '/books/:id/dislike', to: 'books#dislike', as: :dislike_book
+  
+  put '/books/:id/unlike', to: 'books#unlike', as: :unlike_book
+  put '/books/:id/undislike', to: 'books#undislike', as: :undislike_book  
+
+  resources :books 
+
+  
+  
   
   get 'friends', to: 'user_friendships#show', as: :friendships
   
@@ -11,6 +22,7 @@ Rails.application.routes.draw do
   get 'search-results/:id', to: 'profiles#index', as: :search
  
   devise_for :users, :controllers => { registrations: 'registrations' , omniauth_callbacks: 'callbacks'}
+  
   
   
   #Custom Routes , adding /register and /login .

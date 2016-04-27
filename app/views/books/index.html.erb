@@ -13,21 +13,21 @@
           </div>
           <div class="span6" style="padding:2em;">
             <div style="white-space:nowrap">
-            <span class="label label-info">Title </span>
-            <strong style="padding-left:1em;"><%= book.title %></strong>
+              <span class="label label-info">Title </span>
+              <strong style="padding-left:1em;"><%= book.title %></strong>
             </div>
             <br>
             <div style="white-space:nowrap">
-            <span class="label label-info">Author </span>
-            <strong style="padding-left:1em;"><%= book.author %></strong>
+              <span class="label label-info">Author </span>
+              <strong style="padding-left:1em;"><%= book.author %></strong>
             </div>
             <br>
             
             <!-- Prima di mostrare il proprietario del libro controlliamo che l'utente sia loggato -->
             <% if user_signed_in? %>
               <div style="white-space:nowrap">
-              <span class="label label-important">Owner </span>
-              <strong style="padding-left:1em;"><%= User.find(book.user_id).full_name %>.</strong>
+                <span class="label label-important">Owner </span>
+                <strong style="padding-left:1em;"><%= User.find(book.user_id).full_name %>.</strong>
               </div>
             <% end %>
             <br>
@@ -43,6 +43,26 @@
               <% end %>
             </div>
           </div>
+          <div class="span2">
+          <% if current_user.voted_for? book %>
+            <% if current_user.voted_as_when_voted_for book %>
+              <button type="button" class="btn btn-success btn-circle btn-xl">
+                <i class="icon-thumbs-up"></i>
+                <%= link_to "Liked", unlike_book_path(book), method: :put, style: "color:#FFFFFF;" %>
+              </button>
+            <% else %>
+              <button type="button" class="btn btn-danger btn-circle btn-xl">
+                <i class="icon-thumbs-down"></i>
+                <%= link_to "Disliked", undislike_book_path(book), method: :put, style: "color:#FFFFFF;"  %>
+              </button>
+            <% end %>
+          <% else %>
+            <%= link_to "Like", like_book_path(book), method: :put, class: "btn btn-success" %>
+            <%= link_to "Dislike", dislike_book_path(book), method: :put, class: "btn btn-danger" %>
+          <% end %>
+          </div>
+          
+          
         </div>
       </div>
     <% end %>

@@ -1,7 +1,6 @@
-
 class BooksController < ApplicationController
-  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
-  before_action :set_book, only: [:show, :edit, :update, :destroy]
+  before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :like, :unlike ]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :like, :unlike]
 
   # GET /books
   # GET /books.json
@@ -138,6 +137,19 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def like
+    @book = Book.find(params[:id])
+    @book.liked_by current_user
+    redirect_to book_path(params[:id])
+  end
+  
+  def dislike
+    @book = Book.find(params[:id])
+    @book.disliked_by current_user
+    redirect_to book_path(params[:id])
+  end
+
 
   private
     # Use callbacks to share common setup or constraints between actions.

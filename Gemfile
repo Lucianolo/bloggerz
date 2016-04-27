@@ -48,6 +48,9 @@ gem 'random-word-generator', '~> 0.0.1'
 
 gem 'omniauth-facebook', '~> 3.0.0'
 
+gem 'acts_as_votable', '~> 0.10.0'
+
+
 group :test do
   gem 'shoulda'
 end

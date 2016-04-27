@@ -1,5 +1,8 @@
 require 'random_word_generator'
 class User < ActiveRecord::Base
+  
+  acts_as_voter
+  
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -34,7 +37,11 @@ class User < ActiveRecord::Base
         user.uid = auth.uid
         user.email = auth.info.email
         first_name = auth.info.name.partition(" ").first
-        last_name = auth.info.name.partition(" ").last
+        medium_name = auth.info.name.partition(" ").last
+        last_name = medium_name.partition(" ").last
+        if last_name == "" 
+          last_name=medium_name
+        end
         user.first_name = first_name
         user.last_name = last_name
         user.profile_name = first_name+"_"+last_name

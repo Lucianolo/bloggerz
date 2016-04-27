@@ -3,7 +3,7 @@
         <div class="span2">
             <%= link_to image_tag(@book.cover_uri), book_path(@book.id) %>
         </div>
-        <div class="span4">
+        <div class="span3">
             <div class="row">
                 <h1><span class="label label-info">Title </span></h1>
                 <strong><%= @book.title %></strong>
@@ -14,7 +14,7 @@
                 <strong><%= @book.author %></strong>
             </div>
         </div>
-        <div class="span4">
+        <div class="span3">
             <div class="row">
                 <h1><span class="label label-info">ISBN </span></h1>
                 <strong><%= @book.isbn %></strong>
@@ -23,6 +23,17 @@
             <div class="row">
                 <h1><span class="label label-info">Owner </span></h1>
                 <strong><%= link_to User.find(@book.user_id).full_name, profile_path(User.find(@book.user_id).profile_name) %></strong>
+            </div>
+        </div>
+        <div class="span3">
+            <div class="row">
+                <h1><span class="label label-success">Likes </span></h1>
+                <strong><%= @book.get_likes.size %></strong>
+            </div>
+            <br>
+            <div class="row">
+                <h1><span class="label label-important">Dislikes </span></h1>
+                <strong><%= @book.get_dislikes.size %></strong>
             </div>
         </div>
     </div>
