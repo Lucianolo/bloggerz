@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
         user.last_name = last_name
         user.profile_name = first_name+"_"+last_name
         user.password = RandomWordGenerator.composed(2, 10, '_')
-        user.remote_avatar_url = user.large_image                    #auth.info.image.gsub('http:','https:') 
+        user.remote_avatar_url = user.large_image 
       end
   end
   

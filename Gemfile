@@ -46,7 +46,7 @@ gem 'mini_magick'
 
 gem 'random-word-generator', '~> 0.0.1'
 
-gem 'omniauth-facebook'
+gem 'omniauth-facebook', '~> 3.0.0'
 
 group :test do
   gem 'shoulda'
