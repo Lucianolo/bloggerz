@@ -141,25 +141,25 @@ class BooksController < ApplicationController
   def like
     @book = Book.find(params[:id])
     @book.liked_by current_user
-    redirect_to book_path(params[:id])
+    redirect_to books_path
   end
   
   def dislike
     @book = Book.find(params[:id])
     @book.disliked_by current_user
-    redirect_to book_path(params[:id])
+    redirect_to books_path
   end
   
   def unlike
     @book = Book.find(params[:id])
     @book.unliked_by current_user
-    redirect_to book_path(params[:id])
+    redirect_to books_path
   end
   
   def undislike
     @book = Book.find(params[:id])
     @book.undisliked_by current_user
-    redirect_to book_path(params[:id])
+    redirect_to books_path
   end
 
 
