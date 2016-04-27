@@ -1,6 +1,6 @@
 class BooksController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :like, :unlike ]
-  before_action :set_book, only: [:show, :edit, :update, :destroy, :like, :unlike]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :like, :unlike, :undislike, :dislike]
 
   # GET /books
   # GET /books.json
@@ -147,6 +147,18 @@ class BooksController < ApplicationController
   def dislike
     @book = Book.find(params[:id])
     @book.disliked_by current_user
+    redirect_to book_path(params[:id])
+  end
+  
+  def unlike
+    @book = Book.find(params[:id])
+    @book.unliked_by current_user
+    redirect_to book_path(params[:id])
+  end
+  
+  def undislike
+    @book = Book.find(params[:id])
+    @book.undisliked_by current_user
     redirect_to book_path(params[:id])
   end
 
