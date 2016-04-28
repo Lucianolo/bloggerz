@@ -78,7 +78,7 @@ class UserFriendshipsController < ApplicationController
         
         respond_to do |format|
             if @friendship.update(state: "accepted")
-                format.html { redirect_to profile_path(User.find(@friendship.friend_id).profile_name), notice: 'Congratulations, you have a new friend!' }
+                format.html { redirect_to :friendships , notice: 'Congratulations, you have a new friend!' }
                 format.json { render :show, status: :ok, location: @user_friendship }
             else
                 format.html { render action: :friendship_confirmation }

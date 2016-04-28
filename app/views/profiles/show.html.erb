@@ -19,7 +19,7 @@
                 <% if !current_user.friends.include? @user %>
                   <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
                 <% else %>
-                  <%= link_to "Delete Friendship", user_friendship_path(@user.id), :method => :delete , class: "btn btn-danger"%>
+                  <%= link_to "Delete Friendship", user_friendship_path(@user), :method => :delete , class: "btn btn-danger"%>
                 <% end %>
               <% else %>
                 <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
