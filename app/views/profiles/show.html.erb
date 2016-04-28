@@ -1,6 +1,6 @@
 
         
-      <div class="row" style="display: inline; margin-bottom:0;">
+      <div class="row" style="display: inline; margin-bottom: 0;">
         <span class="col-sm-4">
           <% if User.where(id: @user.id, avatar: nil).present? %>
             <%= image_tag @user.gravatar_url %>
@@ -14,12 +14,12 @@
             
             <!-- verifico di non essere nel mio profilo -->
             
+              
               <% if (current_user!=nil && current_user.id!=@user.id ) %>
-                <% puts current_user.friends %>
-                <% if !current_user.friends.include? @user %>
-                  <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
-                <% else %>
+                <% if current_user.has_friend(@user.id) %>
                   <%= link_to "Delete Friendship", user_friendship_path(@user), :method => :delete , class: "btn btn-danger"%>
+                <% else %>
+                    <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
                 <% end %>
               <% else %>
                 <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
@@ -45,7 +45,7 @@
  <% @user_books.each do |book| %>
      
         <hr>
-        <div id="book" class="row well slideUp">
+        <div id="book" class="row well slideUp" style="margin: 1em 0 1em 0;">
           
           <div class="span2">
             <%= link_to image_tag(book.cover_uri), book_path(book.id) %>

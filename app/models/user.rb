@@ -56,9 +56,18 @@ class User < ActiveRecord::Base
   end
   
   
+  # Metodo che usiamo nelle view per mostrare o meno il tasto aggiungi amico, current_user.has_friend(friend_id) ritorna true in caso di amicizia.
+  def has_friend(friend_id)
+    @friendship1 = UserFriendship.where(user_id: friend_id, friend_id: self.id).first
+    @friendship2 = UserFriendship.where(friend_id: friend_id, user_id: self.id).first
+    return (!@friendship1.nil? or !@friendship2.nil?)
+  end
+  
+  
   def full_name
     first_name.capitalize+" "+last_name.capitalize
   end
+  
   
   def gravatar_url
     stripped_email = email.strip

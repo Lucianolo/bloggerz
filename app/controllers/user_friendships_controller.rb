@@ -8,7 +8,6 @@ class UserFriendshipsController < ApplicationController
             raise ActiveRecord::RecordNotFound if @friend.nil?
             
             @user_friendship = current_user.user_friendships.new(friend: @friend)
-            flash[:success] = "Ask #{@friend.full_name} for friendship!"
         else
             flash[:error] = "Friend required"
         end

@@ -11,7 +11,7 @@
 
 <% if @actual_friendships_friend %>
     <% @actual_friendships_friend.each do |friend| %>
-            <div class="row well">
+            <div class="row well" style="margin: 1em 0 1em 0;">
                 <div class="span2">
                     <% if User.where(id: friend.user_id, avatar: nil).present? %>
                         <% puts "no thumb for "+ User.where(id: friend.user).to_s  %>
@@ -30,7 +30,7 @@
 
 <% if @actual_friendships_user %>
     <% @actual_friendships_user.each do |user| %>
-            <div class="row well">
+            <div class="row well" style="margin: 1em 0 1em 0;">
                 <div class="span2">
                     <% if User.where(id: user.friend_id, avatar: nil).present? %>
                         <%= image_tag image_tag(User.find(user.friend_id).gravatar_url) %>
@@ -57,7 +57,7 @@
 
 <% if @friendships_requested  %>
     <% @friendships_requested.each do |request| %>
-            <div class="row well">
+            <div class="row well" style="margin: 1em 0 1em 0;">
                 <div class="span2">
                     <% if User.where(id: request.user_id, avatar: nil).present? %>
                         <%= image_tag(User.find(request.user_id).gravatar_url) %>

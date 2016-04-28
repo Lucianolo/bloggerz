@@ -7,7 +7,7 @@
 
     <% @books.each do |book| %>
       <div>
-        <div id="book" class="row well slideUp">
+        <div id="book" class="row well slideUp" style="margin: 1em 0 1.5em 0">
           <div class="span2">
             <%= link_to image_tag(book.cover_uri), book_path(book.id) %>
           </div>
