@@ -1,6 +1,9 @@
 class CommentsController < ApplicationController
-
+    
+    before_filter :authenticate_user!, only: [:create, :destroy]
     before_action :set_book
+    
+    
     
     def create  
       @comment = @book.comments.build(comment_params)
@@ -10,8 +13,7 @@ class CommentsController < ApplicationController
         flash[:success] = "You commented the hell out of that book!"
         redirect_to :back
       else
-        flash[:alert] = "Check the comment form, something went horribly wrong."
-        render root_path
+         redirect_to :back
       end
     end
     
@@ -20,7 +22,7 @@ class CommentsController < ApplicationController
     
       @comment.destroy
       flash[:success] = "Comment deleted :("
-      redirect_to root_path
+      redirect_to :back
     end  
     
     private

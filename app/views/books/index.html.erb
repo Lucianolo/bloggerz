@@ -44,7 +44,7 @@
             </div>
           </div>
           <div class="span2">
-          <% if current_user.voted_for? book %>
+          <% if (current_user and current_user.voted_for? book )%>
             <% if current_user.voted_as_when_voted_for book %>
               <button type="button" class="btn btn-success btn-circle btn-xl">
                 <i class="icon-thumbs-up"></i>

@@ -44,13 +44,13 @@
     <br><br>
     <p><%= @book.description.html_safe %></p>
 </div>
-    <% if @book.comments %>
+<% if @book.comments %>
     <div class="comments well">
-        <span class="label label-success" style="float:left;">Comments </span>
+        <span class="label label-success" style="float:left;">Comments</span>
         <br><br>
         <% @book.comments.each do |comment| %>
-            <div class="row well">
-                <div class="comment">
+            <hr>
+            <div class="row">
                 <div class="span2">
                     <%= link_to image_tag(comment.user.avatar_url(:thumb)), profile_path(comment.user.profile_name) %>
                 </div>
@@ -59,26 +59,26 @@
                         <%= comment.user.full_name %>
                     </div>
                     
-                        <div class="comment_content">
-                            <%= comment.content %>
-                        </div>
+                    <div class="comment_content">
+                        <%= comment.content %>
+                    </div>
                 </div>        
-                        <% if comment.user == current_user %>
-                        <div class="delete-comment">
-                            <%= link_to "x", book_comment_path(@book, comment), method: :delete, class: "close",  data: { confirm: "Are you sure?" } %>
-                        </div>
-                        <% end %>
-                    
-                </div>
+                <% if comment.user == current_user %>
+                    <div class="delete-comment">
+                        <%= link_to "x", book_comment_path(@book, comment), method: :delete, class: "close",  data: { confirm: "Are you sure?" } %>
+                    </div>
+                <% end %>
             </div>
         <% end %>
-    <% end %>
-    <div class="comment-like-form well">
-        <%= form_for [@book, @book.comments.new] do |f| %>
-            <%= f.text_field :content, placeholder: 'Add a comment...' %>
-        <% end %>
     </div>
-</div>
+<% end %>
+    <div class="comments well">
+        <div class="comment-form">
+            <%= form_for [@book, @book.comments.new] do |f| %>
+                <%= f.text_field :content, placeholder: 'Add a comment...' %>
+            <% end %>
+        </div>
+    </div>
 
 <%= link_to 'Edit', edit_book_path(@book) %> |
 <%= link_to 'Back', books_path %>
