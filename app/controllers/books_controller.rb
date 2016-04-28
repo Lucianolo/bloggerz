@@ -44,8 +44,12 @@ class BooksController < ApplicationController
     else
       
       # Inizializzo l'URI inserendo i'isbn e invio la richiesta
-      uri = URI('https://www.googleapis.com/books/v1/volumes?q=isbn:'+isbn+'&amp;language=it')
-      res = Net::HTTP.get_response(uri)
+      uri = URI.parse('https://www.googleapis.com/books/v1/volumes?q=isbn:'+isbn+'&amp;language=it')
+      http = Net::HTTP.new(uri.host, uri.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      req = Net::HTTP::Get.new(uri.request_uri)
+      res = http.request(req)
       count = JSON.parse(res.body)["totalItems"]
       if count==0
         render file: 'public/404', status: 404, formats: [:html]

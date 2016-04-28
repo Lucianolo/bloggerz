@@ -72,3 +72,56 @@ hr {
     visibility: hidden;
 }
 
+.comments {
+    text-align: center;
+}
+.user-name, .comment-content {
+    display: inline;
+  }
+  .user-name {
+    font-weight: 500;
+    margin-right: 0.3em;
+    color: #125688;
+    font-size: 15px;
+  }
+  #comment {
+    margin-top: 7px;
+  }
+  
+  #comment  .user-name {
+      font-weight: 500;
+      margin-right: 0.3em;
+    }
+
+.delete-comment {
+      float: right;
+      color: red;
+}
+    
+#comment {
+  padding-left: 24px;
+  padding-right: 24px;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.comment_content {
+  font-size: 15px;
+  line-height: 18px;
+  border: medium none;
+  width: 100%;
+  color: #4B4F54;
+  padding-top: 1em;
+}
+
+.comment-like-form {
+  padding-top: 24px;
+  margin-top: 13px;
+  margin-left: 24px;
+  margin-right: 24px;
+  min-height: 68px;
+  align-items: center;
+  border-top: 1px solid #EEEFEF;
+  flex-direction: row;
+  justify-content: center;
+}

@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   put '/books/:id/unlike', to: 'books#unlike', as: :unlike_book
   put '/books/:id/undislike', to: 'books#undislike', as: :undislike_book  
 
-  resources :books 
+  resources :books do
+    resources :comments 
+  end
 
   
   

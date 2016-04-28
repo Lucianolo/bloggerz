@@ -23,6 +23,7 @@ class User < ActiveRecord::Base
   has_many :statuses
   has_many :user_friendships
   has_many :friends, through: :user_friendships 
+  has_many :comments, dependent: :destroy
   
   #has_many :friends, -> { where(user_friendships: {status: 'accepted'}).order('first_name DESC') }, :through => :user_friendships
   
