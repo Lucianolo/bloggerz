@@ -1,6 +1,6 @@
 <div class="profile_name" style="padding-top:1em;">Editing Book</div>
 <br><br>
-<div class="text">
+<div class="text" style="color:black;">
   <%= simple_form_for(@book) do |f| %>
     <%= f.input :description, :style => 'background-color:#333333;' %>
     <div class="actions">
@@ -9,6 +9,6 @@
   <% end %>
   <%= link_to 'Show', @book %> |
   <%= link_to 'Back', books_path %>
- </div>
+</div>
 
 
