@@ -1,8 +1,8 @@
 <div class="profile_name" style="padding-top:1em;">Editing Book</div>
 <br><br>
-<div class="text" style="color:black;">
+<div class="text">
   <%= simple_form_for(@book) do |f| %>
-    <%= f.input :description, :style => 'background-color:#333333;' %>
+    <%= f.input :description, :class => 'text-dark' %>
     <div class="actions">
       <%= f.button :submit , :class => 'btn btn-info'%>
     </div>

@@ -56,6 +56,10 @@ body {
     color: #f6f6f6; font-family: 'Orienta', sans-serif; font-size: 16px; line-height: 24px; margin: 0 0 24px; text-align: center;
 }
 
+#book_description{
+    color: #000000;
+}
+
 .text.ligth{
     color: #333333;
 }
