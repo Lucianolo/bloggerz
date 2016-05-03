@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :omniauthable, :omniauth_providers => [:facebook]
          
+         
   mount_uploader :avatar, AvatarUploader
   
   validates :first_name, presence: true

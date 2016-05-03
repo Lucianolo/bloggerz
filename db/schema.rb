@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428104759) do
+ActiveRecord::Schema.define(version: 20160503161509) do
 
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
@@ -22,6 +22,8 @@ ActiveRecord::Schema.define(version: 20160428104759) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "isbn",        limit: 10
+    t.float    "lat"
+    t.float    "lng"
   end
 
   add_index "books", ["user_id"], name: "index_books_on_user_id"

@@ -36,7 +36,7 @@ class UserFriendshipTest < ActiveSupport::TestCase
   #  end
   #end
   
-  context "#accept!" do
+  context "#accept" do
     setup do
       
       @user_friendship = UserFriendship.create user: users(:lux), friend: users(:vitaletti)
@@ -44,12 +44,12 @@ class UserFriendshipTest < ActiveSupport::TestCase
     end
     
     should "set the state to accepted" do
-      @user_friendship.accept!
+      @user_friendship.accept
       assert_equal "accepted", @user_friendship.state
     end
     
     should "include the friend in the user's friends list" do
-      @user_friendship.accept!
+      @user_friendship.accept
       puts @user_friendship.state
       users(:lux).friends.reload
       assert users(:lux).friends.include?(:vitaletti)

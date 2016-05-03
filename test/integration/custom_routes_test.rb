@@ -19,7 +19,7 @@ class CustomRoutesTest < ActionDispatch::IntegrationTest
   end 
   
   test "that a profile page displays correctly" do
-    get '/Lux_Luthor'
+    get '/Federico_Palmaro'
     assert_response :success
   end
 end
