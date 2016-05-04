@@ -2,6 +2,8 @@ class BooksController < ApplicationController
   before_filter :authenticate_user!, only: [:new, :create, :edit, :update, :destroy, :like, :unlike ]
   before_action :set_book, only: [:show, :edit, :update, :destroy, :like, :unlike, :undislike, :dislike]
 
+
+ 
   # GET /books
   # GET /books.json
   def index
@@ -175,10 +177,11 @@ class BooksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def book_params
-      params.require(:book).permit(:user_id, :isbn)
+      params.require(:book).permit(:user_id, :isbn, :lat, :lng)
     end
     
     def add_book_description
       params.require(:book).permit(:description)
     end
+    
 end

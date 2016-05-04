@@ -1,5 +1,7 @@
 
 <%= simple_form_for(@book) do |f| %>
+  <%= f.hidden_field :lat, :id => "lat" %>
+  <%= f.hidden_field :lng, :id => "lng"  %>
   <input class="string optional form-control" placeholder="ISBN" type="number" name="book[isbn]" id="book_isbn" style="text-align:center;">
   <div class="actions">
     <%= f.button :submit %>

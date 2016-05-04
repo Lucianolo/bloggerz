@@ -45,7 +45,7 @@
           </div>
           <!-- Prima di mostrare Like/unlike verifichiamo che l'utente sia loggato -->
           <% if user_signed_in? %>
-            <div class="span2">
+            <div class="span3">
             <% if (current_user and current_user.voted_for? book )%>
               <% if current_user.voted_as_when_voted_for book %>
                 <button type="button" class="btn btn-success btn-circle btn-xl">
@@ -67,13 +67,13 @@
               <strong><= book.get_dislikes.size %></strong>
               -->
             <% end %>
+            
+            <div style="whitespace:nowrap">
+              <strong ><%= book.distance(current_user.user_lat,current_user.user_lng) %> km from you!</strong>
+            </div>
             </div>
           <% end %>
           
         </div>
       </div>
     <% end %>
-    
-    
-
-

@@ -7,6 +7,8 @@
           <legend>Sign In</legend>
           <%= f.input :email , label: false, placeholder: "email" %>
           <%= f.input :password, label: false, placeholder: "password" %>
+          <%= f.hidden_field :user_lat, :id => "lat" %>
+          <%= f.hidden_field :user_lng, :id => "lng"  %>
         <!--% if devise_mapping.rememberable? %-->
             <!--%= f.input :remember_me, as: :boolean %-->
         <!--% end -%-->
@@ -26,3 +28,16 @@
     <div class="profile_name" style="padding-top:2em;margin-left:0;">Join us, it's free!</div>
   </div>
 </div>
+
+<script type="text/javascript">
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(GeoL);
+        function GeoL(position) {
+          document.getElementById('lat').value = position.coords.latitude;
+          document.getElementById('lng').value = position.coords.longitude;
+        }
+    }
+    else {
+      console.log('Geolocation is not supported for this Browser/OS version yet.');
+    }
+</script>

@@ -5,3 +5,16 @@
 
 <%= link_to 'Back', books_path %>
 </div>
+
+<script type="text/javascript">
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(GeoL);
+        function GeoL(position) {
+          document.getElementById('lat').value = position.coords.latitude;
+          document.getElementById('lng').value = position.coords.longitude;
+        }
+    }
+    else {
+      console.log('Geolocation is not supported for this Browser/OS version yet.');
+    }
+</script>

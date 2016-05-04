@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   
   put '/books/:id/unlike', to: 'books#unlike', as: :unlike_book
   put '/books/:id/undislike', to: 'books#undislike', as: :undislike_book  
+  
 
   resources :books do
     resources :comments 
@@ -23,7 +24,7 @@ Rails.application.routes.draw do
   
   get 'search-results/:id', to: 'profiles#index', as: :search
  
-  devise_for :users, :controllers => { registrations: 'registrations' , omniauth_callbacks: 'callbacks'}
+  devise_for :users, :controllers => { registrations: 'registrations' , omniauth_callbacks: 'callbacks', sessions: 'custom_sessions'}
   
   
   

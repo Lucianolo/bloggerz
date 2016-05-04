@@ -3,6 +3,10 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     super
+    user_lat = params[:user][:user_lat]
+    user_lng = params[:user][:user_lng]
+    #User.where(email: params[:user][:email]).first.update(user_lat: user_lat, user_lng: user_lng)
+    @user.update(user_lat: user_lat, user_lng: user_lng)
     UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
   end
   
@@ -17,10 +21,10 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :profile_name, :email, :password, :password_confirmation, :avatar, :avatar_cache )
+    params.require(:user).permit(:first_name, :last_name, :profile_name, :email, :password, :password_confirmation, :avatar, :avatar_cache, :user_lat, :user_lng )
   end
 
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :avatar, :avatar_cache )
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, :avatar, :avatar_cache, :user_lat, :user_lng )
   end
 end

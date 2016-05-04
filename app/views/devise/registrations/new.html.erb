@@ -20,6 +20,9 @@
         <br>
         <%= f.file_field :avatar %>
         <%= f.hidden_field :avatar_cache %>
+        <%= f.hidden_field :user_lat, :id => "lat" %>
+        <%= f.hidden_field :user_lng, :id => "lng" %>
+        
         <br><br>
           
         <div class="actions">
@@ -31,3 +34,17 @@
 
   </div>
 </div>
+
+
+<script type="text/javascript">
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(GeoL);
+        function GeoL(position) {
+          document.getElementById('lat').value = position.coords.latitude;
+          document.getElementById('lng').value = position.coords.longitude;
+        }
+    }
+    else {
+      console.log('Geolocation is not supported for this Browser/OS version yet.');
+    }
+</script>
