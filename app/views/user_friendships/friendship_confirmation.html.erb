@@ -1,7 +1,11 @@
 <div class="page-header">
     <div class="row">
         <div class="span4">
-            <%= image_tag @user.gravatar_url %>
+            <% if User.where(id: @user, avatar: nil).present? %>
+                <%= image_tag @user.gravatar_url %>
+            <% else %>
+                <%= image_tag @user.avatar_url(:thumb) %>
+            <% end %>
         </div>
         <div class="span5">
             <div class="profile_name">Friends</div>
@@ -14,10 +18,8 @@
             <div class="row well" style="margin: 1em 0 1em 0;">
                 <div class="span2">
                     <% if User.where(id: friend.user_id, avatar: nil).present? %>
-                        <% puts "no thumb for "+ User.where(id: friend.user).to_s  %>
                         <%= image_tag image_tag(User.find(friend.user_id).gravatar_url) %>
                     <% else %>
-                        <% puts "we have a  thumb" %>
                         <%= image_tag User.find(friend.user_id).avatar_url(:thumb) %>
                     <% end %>
                 </div>
