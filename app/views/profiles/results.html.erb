@@ -10,12 +10,12 @@
           <div class="span2">
             
             <% if User.where(id: user, avatar: nil).present? %>
-              <%= image_tag image_tag(User.find(user).gravatar_url) %>
+              <%= image_tag User.find(user).gravatar_url %>
             <% else %>
               <%= image_tag User.find(user).avatar_url(:thumb)  %>
             <% end %>
           </div>
-          <div class="span2" style="padding-top:1em;">
+          <div class="span2" style="padding-top:1em;text-align:left;">
             <strong><%= link_to user.full_name, profile_path(user.profile_name) %></strong>
           </div>
         </div>

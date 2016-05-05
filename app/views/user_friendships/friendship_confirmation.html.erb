@@ -18,7 +18,7 @@
             <div class="row well" style="margin: 1em 0 1em 0;">
                 <div class="span2">
                     <% if User.where(id: friend.user_id, avatar: nil).present? %>
-                        <%= image_tag image_tag(User.find(friend.user_id).gravatar_url) %>
+                        <%= image_tag User.find(friend.user_id).gravatar_url %>
                     <% else %>
                         <%= image_tag User.find(friend.user_id).avatar_url(:thumb) %>
                     <% end %>

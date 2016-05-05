@@ -22,6 +22,11 @@ class BooksController < ApplicationController
 
   # GET /books/1/edit
   def edit
+    # Only the book's owner can edit a book 
+    if current_user.id != @book.user_id
+      flash[:alert] = "You haven't got the permissions to edit this book."
+      redirect_to @book
+    end
   end
 
   # POST /books
