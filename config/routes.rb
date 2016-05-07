@@ -12,7 +12,14 @@ Rails.application.routes.draw do
   resources :books do
     resources :comments 
   end
-
+  
+#begin  
+  #resources :users do
+   # member do
+    #  get :confirm_email
+    #end
+  #end
+#end
   
   
   
