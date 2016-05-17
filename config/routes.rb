@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 #end
   
   
+  post 'swaps/:book_id,:other_book_id', to: 'swaps#create', as: :swaps
   
   get 'friends', to: 'user_friendships#show', as: :friendships
   

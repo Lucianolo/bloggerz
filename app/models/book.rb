@@ -9,6 +9,6 @@ class Book < ActiveRecord::Base
     
     def distance(user_lat, user_lng)
       miles = Geocoder::Calculations.distance_between([self.lat, self.lng],[user_lat, user_lng])
-      km = (miles*1.60934).round(3)
+      km = (miles*1.60934).round(2)
     end
 end

@@ -10,8 +10,34 @@
         <div id="book" class="row well slideUp" style="margin: 1em 0 1.5em 0">
           <div class="span2">
             <%= link_to image_tag(book.cover_uri), book_path(book.id) %>
+            <% if user_signed_in? %>
+              <% if (current_user and current_user.voted_for? book )%>
+                <% if current_user.voted_as_when_voted_for book %>
+                  <button type="button" class="btn btn-success btn-circle btn-xl">
+                    <i class="icon-thumbs-up"></i>
+                    <%= link_to "Liked", unlike_book_path(book), method: :put, style: "color:#FFFFFF;" %>
+                  </button>
+                <% else %>
+                  <button type="button" class="btn btn-danger btn-circle btn-xl">
+                    <i class="icon-thumbs-down"></i>
+                    <%= link_to "Disliked", undislike_book_path(book), method: :put, style: "color:#FFFFFF;"  %>
+                  </button>
+                <% end %>
+              <% else %>
+                <%= link_to "Like", like_book_path(book), method: :put, class: "btn btn-success" %>
+                <%= link_to "Dislike", dislike_book_path(book), method: :put, class: "btn btn-danger" %>
+                  <!-- contatore like
+                  <br>
+                  <strong><= book.get_likes.size %></strong>
+                  <strong><= book.get_dislikes.size %></strong>
+                  -->
+              <% end %>
+              <div style="whitespace:nowrap">
+                <strong ><%= book.distance(current_user.user_lat,current_user.user_lng) %> km from you!</strong>
+              </div>
+            <% end %>
           </div>
-          <div class="span6" style="padding:2em;">
+          <div class="span5" style="padding:2em;">
             <div style="white-space:nowrap">
               <span class="label label-info">Title </span>
               <strong style="padding-left:1em;"><%= book.title %></strong>
@@ -43,35 +69,19 @@
               <% end %>
             </div>
           </div>
-          <!-- Prima di mostrare Like/unlike verifichiamo che l'utente sia loggato -->
+          <!-- form della proposta di scambio , verifichiamo che l'utente sia loggato -->
+          
           <% if user_signed_in? %>
-            <div class="span3">
-            <% if (current_user and current_user.voted_for? book )%>
-              <% if current_user.voted_as_when_voted_for book %>
-                <button type="button" class="btn btn-success btn-circle btn-xl">
-                  <i class="icon-thumbs-up"></i>
-                  <%= link_to "Liked", unlike_book_path(book), method: :put, style: "color:#FFFFFF;" %>
-                </button>
-              <% else %>
-                <button type="button" class="btn btn-danger btn-circle btn-xl">
-                  <i class="icon-thumbs-down"></i>
-                  <%= link_to "Disliked", undislike_book_path(book), method: :put, style: "color:#FFFFFF;"  %>
-                </button>
-              <% end %>
-            <% else %>
-              <%= link_to "Like", like_book_path(book), method: :put, class: "btn btn-success" %>
-              <%= link_to "Dislike", dislike_book_path(book), method: :put, class: "btn btn-danger" %>
-              <!-- contatore like
-              <br>
-              <strong><= book.get_likes.size %></strong>
-              <strong><= book.get_dislikes.size %></strong>
-              -->
+            <% if !current_user.books.include?(book) %>
+              <div class="span3" style="padding-top:2em;">
+                <span class="label label-info">Swap Proposal</span>
+                <%= form_tag swaps_path(book, :other_book) , :method => :post  do %>
+                  <%= select_tag :other_book, options_from_collection_for_select(current_user.books, "id", "title") %>
+                  <input type="submit" value="Submit" class="btn btn-info">
+                <% end %>
+                </br></br>
+              </div>
             <% end %>
-            
-            <div style="whitespace:nowrap">
-              <strong ><%= book.distance(current_user.user_lat,current_user.user_lng) %> km from you!</strong>
-            </div>
-            </div>
           <% end %>
           
         </div>
