@@ -36,8 +36,14 @@ class SwapsController < ApplicationController
     
     def accept
         swap = Swap.find(params[:id])
+        my_book = Book.find(swap.other_book_id)
+        other_book = Book.find(swap.book_id)
         if swap 
             if swap.update(status: "accepted")
+                # in case swap is accepted we change the owner value of the books
+                my_book.update(user_id: current_user.id)
+                other_book.update(user_id: swap.user_id)
+                
                 flash[:success] = "You have just accepted a Book swap request, congratulations!"
                 redirect_to root_path
             end

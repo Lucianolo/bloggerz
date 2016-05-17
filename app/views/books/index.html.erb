@@ -79,7 +79,12 @@
                   <%= select_tag :other_book, options_from_collection_for_select(current_user.books, "id", "title") %>
                   <input type="submit" value="Submit" class="btn btn-info">
                 <% end %>
-                </br></br>
+                </br>
+                <% if book.swaps_count>0 %>
+                  <span class="label label-success">Swapped <%= book.swaps_count %> times.</span>
+                <% else %>
+                  <span class="label label-info">Never Swapped.</span>
+                <% end %>
               </div>
             <% end %>
           <% end %>

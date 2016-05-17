@@ -61,8 +61,23 @@ class BooksController < ApplicationController
       if count==0
         render file: 'public/404', status: 404, formats: [:html]
       else
+        # Nella risposta la descrizione (quando presente) è abbreviata, per affinare il risultato eseguiamo un'altra chiamata 
+        # usando stavolta il self_link contenuto nella response
+        
+        @self_link = JSON.parse(res.body)["items"][0]["selfLink"]
+        
+        uri = URI.parse(@self_link)
+        puts uri
+        http = Net::HTTP.new(uri.host, uri.port)
+        puts http
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+        req = Net::HTTP::Get.new(uri.request_uri)
+        puts req
+        res = http.request(req)
+        puts res.body
         # Parsing della risposta in JSON e prendo il campo ITEMS/VOLUMEINFO
-        items = JSON.parse(res.body)["items"][0]["volumeInfo"]
+        items = JSON.parse(res.body)["volumeInfo"]
       
         # Salvo i valori che ci interessano in variabili di istanza (in modo da renderle accessibili anche dalla view, non è necessario ma potrebbe servire)
         @title = items["title"]
@@ -71,10 +86,7 @@ class BooksController < ApplicationController
         if items.has_key?("imageLinks")
           @cover = items["imageLinks"]["thumbnail"]
         end
-      
-        # Debug info
-        puts @title
-        puts @description
+    
       
         @description = items["description"]
       
@@ -88,8 +100,6 @@ class BooksController < ApplicationController
         
         # Da rivedere eventualmente perchè in alcuni casi da errore (in particolare bisogna analizzare più risultati e vedere come è impostato il campo revisions)
           page_id = JSON.parse(rest.body)["query"]["pages"].first
-          puts page_id
-          puts page_id[0]
           if page_id[0]!="-1"
             desc = page_id.last["revisions"][0]["*"]
           
