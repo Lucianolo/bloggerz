@@ -69,9 +69,6 @@ class UserFriendshipsController < ApplicationController
     
     
     def accept
-        if params[:id]
-            puts params[:id]
-        end
         @user = current_user
         @friendship = UserFriendship.find(friendship_params)
         
@@ -86,9 +83,6 @@ class UserFriendshipsController < ApplicationController
     end
     
     def decline
-        if params[:id]
-            puts params[:id]
-        end
         @user = current_user
         
         @friendship = UserFriendship.find(params[:id])

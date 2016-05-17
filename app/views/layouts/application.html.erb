@@ -77,8 +77,9 @@
                   <li>
         <!-- TODO : aggiungere la notifica su questa icona   -->
                     <span class="fa-stack fa-lg">
-                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa fa-circle fa-stack-2x"><%= link_to Swap.where(other_id: current_user, status: "pending").count, user_notifications_index_path , class: "notifications" %></i>
                       <i class="fa fa-flag fa-stack-1x fa-inverse"></i>
+                      
                     </span>
                   </li>
                 <% else %>

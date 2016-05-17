@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
  
   
+  get 'user_notifications/index'
+
   put '/books/:id/like', to: 'books#like', as: :like_book
   put '/books/:id/dislike', to: 'books#dislike', as: :dislike_book
   
@@ -21,7 +23,9 @@ Rails.application.routes.draw do
   #end
 #end
   
+  get 'swaps/:id/accept', to: 'swaps#accept', as: :swap_accepted
   
+  get 'swaps/:id/decline', to: 'swaps#decline', as: :swap_declined
   post 'swaps/:book_id,:other_book_id', to: 'swaps#create', as: :swaps
   
   get 'friends', to: 'user_friendships#show', as: :friendships

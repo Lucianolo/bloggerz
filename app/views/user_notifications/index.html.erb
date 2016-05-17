@@ -1,0 +1,86 @@
+<div class="page-header">
+    <div class="row">
+        <div class="span3">
+            <% if User.where(id: current_user, avatar: nil).present? %>
+                <%= image_tag current_user.gravatar_url %>
+            <% else %>
+                <%= image_tag current_user.avatar_url(:thumb) %>
+            <% end %>
+        </div>
+        <div class="span7">
+            <div class="profile_name">Books Swap Request</div>
+        </div>
+    </div>
+</div>
+
+<% if @swap_requests %>
+    <% @swap_requests.each do |swap| %>
+            <div class="row well" style="margin: 1em 0 1em 0;">
+                <div class="span2">
+                    <%= link_to image_tag(Book.find(swap.book_id).cover_uri), book_path(swap.book_id) %>
+                </div>
+                <div class="span2">
+                    <%= link_to image_tag(Book.find(swap.other_book_id).cover_uri), book_path(swap.other_book_id) %>
+                </div>
+                <div class="span4">
+                    <div style="white-space:nowrap">
+                        <span class="label label-info">Proposed By: </span>
+                        <strong><%= link_to User.find(swap.user_id).full_name , profile_path(User.find(swap.user_id).profile_name) %></strong>
+                    </div>
+                </div>
+                <div class="span2">
+                    <%= link_to "Accept", swap_accepted_path(swap), class:"btn btn-success" %>
+                    <%= link_to "Decline", swap_declined_path(swap), class:"btn btn-danger" %>
+                </div>
+            </div>
+    <% end %>
+<% end %>
+
+<div class="page-header">
+    <div class="row">
+        <div class="span5">
+            <div class="profile_name">Your Swaps</div>
+        </div>
+    </div>
+</div>
+
+
+<% if @swaps_other %>
+    <% @swaps_other.each do |swap| %>
+        <div class="row well" style="margin: 1em 0 1em 0;">
+            <div class="span2">
+                    <%= link_to image_tag(Book.find(swap.book_id).cover_uri), book_path(swap.book_id) %>
+                </div>
+                <div class="span2">
+                    <%= link_to image_tag(Book.find(swap.other_book_id).cover_uri), book_path(swap.other_book_id) %>
+                </div>
+                <div class="span4">
+                    <div style="white-space:nowrap">
+                        <span class="label label-info">Swapped with: </span>
+                        <strong><%= link_to User.find(swap.user_id).full_name , profile_path(User.find(swap.user_id).profile_name) %></strong>
+                    </div>
+                </div>
+        </div>
+    <% end %>
+<% end %>
+
+<% if @swaps_user %>
+    <% @swaps_user.each do |swap| %>
+        <div class="row well" style="margin: 1em 0 1em 0;">
+            <div class="span2">
+                <%= link_to image_tag(Book.find(swap.book_id).cover_uri), book_path(swap.book_id) %>
+            </div>
+            <div class="span2">
+                <%= link_to image_tag(Book.find(swap.other_book_id).cover_uri), book_path(swap.other_book_id) %>
+            </div>
+            <div class="span4">
+                <div style="white-space:nowrap">
+                    <span class="label label-info">Swapped with: </span>
+                    <strong><%= link_to User.find(swap.other_id).full_name , profile_path(User.find(swap.other_id).profile_name) %></strong>
+                </div>
+                
+            </div>
+            <div class="footer_text"><%= time_ago_in_words(swap.created_at)+" ago." %></div>
+        </div>
+    <% end %>
+<% end %>
