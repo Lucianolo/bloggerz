@@ -3,6 +3,9 @@
     <div class="row">
         <div class="span2" style="margin: auto 2em auto 2em;">
             <%= link_to image_tag(@book.cover_uri), book_path(@book.id) %>
+            <% unless @book.preview_link.nil? %>
+                    <%= link_to "Preview", @book.preview_link , class:"btn btn-success"%>
+            <% end %>
         </div>
         <div class="span3">
             <div class="row">
@@ -35,6 +38,9 @@
             <div class="row">
                 <h1><span class="label label-important">Dislikes </span></h1>
                 <strong><%= @book.get_dislikes.size %></strong>
+            </div>
+            <div class="row">
+                
             </div>
         </div>
     </div>

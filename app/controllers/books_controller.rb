@@ -67,17 +67,15 @@ class BooksController < ApplicationController
         @self_link = JSON.parse(res.body)["items"][0]["selfLink"]
         
         uri = URI.parse(@self_link)
-        puts uri
         http = Net::HTTP.new(uri.host, uri.port)
-        puts http
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         req = Net::HTTP::Get.new(uri.request_uri)
-        puts req
         res = http.request(req)
-        puts res.body
         # Parsing della risposta in JSON e prendo il campo ITEMS/VOLUMEINFO
         items = JSON.parse(res.body)["volumeInfo"]
+        
+        access_info = JSON.parse(res.body)["accessInfo"]
       
         # Salvo i valori che ci interessano in variabili di istanza (in modo da renderle accessibili anche dalla view, non è necessario ma potrebbe servire)
         @title = items["title"]
@@ -86,7 +84,8 @@ class BooksController < ApplicationController
         if items.has_key?("imageLinks")
           @cover = items["imageLinks"]["thumbnail"]
         end
-    
+        
+        @preview = access_info["webReaderLink"]
       
         @description = items["description"]
       
@@ -123,7 +122,7 @@ class BooksController < ApplicationController
             if @description.nil?
               @description = '<strong><a href="https://bloggerz-lucianolo.c9users.io/books/'+@book.id.to_s+'/edit">Add a description</a><strong>'
             end
-            @book.update(author: @author, title: @title, description: @description, cover_uri: @cover)
+            @book.update(author: @author, title: @title, description: @description, cover_uri: @cover, preview_link: @preview)
             format.html { redirect_to @book, notice: 'Book was successfully created.' }
             format.json { render :show, status: :created, location: @book }
           else

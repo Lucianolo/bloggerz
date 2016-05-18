@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160516155029) do
+ActiveRecord::Schema.define(version: 20160518104658) do
 
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
@@ -19,11 +19,12 @@ ActiveRecord::Schema.define(version: 20160516155029) do
     t.string   "title"
     t.string   "cover_uri"
     t.text     "description"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.string   "isbn",        limit: 10
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.string   "isbn",         limit: 10
     t.float    "lat"
     t.float    "lng"
+    t.string   "preview_link"
   end
 
   add_index "books", ["user_id"], name: "index_books_on_user_id"
