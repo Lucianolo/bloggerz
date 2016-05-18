@@ -54,6 +54,8 @@ gem 'acts_as_votable', '~> 0.10.0'
 
 gem 'geocoder', '~> 1.3', '>= 1.3.4'
 
+gem 'cancancan', '~> 1.14.0'
+
 
 group :test do
   gem 'shoulda'

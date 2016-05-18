@@ -23,6 +23,10 @@ Rails.application.routes.draw do
   #end
 #end
   
+  get 'geocoding', to: 'geocoding#new'
+  
+  get 'geocoding/up', to: 'geocoding#update', as: :para
+  
   get 'swaps/:id/accept', to: 'swaps#accept', as: :swap_accepted
   
   get 'swaps/:id/decline', to: 'swaps#decline', as: :swap_declined
@@ -40,11 +44,14 @@ Rails.application.routes.draw do
   
   
   
+  
   #Custom Routes , adding /register and /login .
   devise_scope :user do
+    
     get 'register', to: 'devise/registrations#new', as: :register
     get 'login', to: 'devise/sessions#new', as: :login
     get 'logout', to: 'devise/sessions#destroy', as: :logout
+    get 'devise/sessions/create', to: 'custom_sessions#create', as: :get_location
   end
   
   resources :statuses

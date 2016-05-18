@@ -5,8 +5,18 @@ class CallbacksController < Devise::OmniauthCallbacksController
       
     def facebook
         @user = User.from_omniauth(request.env["omniauth.auth"])
-        UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
+
+        if @user.sign_in_count == 0
+            UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
+        end
+        
         sign_in_and_redirect @user
+    end
+    
+    
+  
+    def after_sign_in_path_for(resource_or_scope)
+        geocoding_path
     end
   
 end
