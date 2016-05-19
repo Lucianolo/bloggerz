@@ -6,8 +6,6 @@ class GeocodingController < ApplicationController
     
     
     def update
-        puts "qui"
-        puts params[:user][:user_lat]
         
         user_lat = params[:user][:user_lat]
         user_lng = params[:user][:user_lng]
