@@ -2,11 +2,11 @@
 <%= simple_form_for(current_user, url: para_path, html: { method: :get, id: "myForm"}) do |f| %>
     <%= f.hidden_field :user_lat, :id => "lat" %>
     <%= f.hidden_field :user_lng, :id => "lng"  %>
-    <%= f.button :submit  %>
+    <%= f.button :submit , :style => "visibility:hidden" %>
 <% end %>
 
 
-
+<h4 style="text-align:center;color:#FFF">Getting position..</h4>
 <script>
     function submitform()
     {

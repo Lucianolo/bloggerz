@@ -153,6 +153,8 @@ class BooksController < ApplicationController
   def destroy
     @book.destroy
     respond_to do |format|
+      Swap.where(book_id: @book.id).delete_all
+      Swap.where(other_book_id: @book.id).delete_all
       format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
       format.json { head :no_content }
     end
