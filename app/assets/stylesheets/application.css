@@ -128,10 +128,11 @@ hr {
 }
 
 .notifications,
-.notifications:hover {
+.notifications:hover
+{
     text-decoration: none;
-    font-size: 34px;
-    color: #FFF;
+    font-size: 15px;
+    color: white ;
 }
 
 .footer_text{
