@@ -1,32 +1,35 @@
 
-<%= simple_form_for(current_user, url: para_path, html: { method: :get, id: "myForm"}) do |f| %>
+
+<%= simple_form_for(current_user, url: para_path, html: { method: :put, id: "myForm"}) do |f| %>
     <%= f.hidden_field :user_lat, :id => "lat" %>
-    <%= f.hidden_field :user_lng, :id => "lng"  %>
+    <%= f.hidden_field :user_lng, :id => "lng" %>
     <%= f.button :submit , :style => "visibility:hidden" %>
 <% end %>
 
 
 <h4 style="text-align:center;color:#FFF">Getting position..</h4>
-<script>
-    function submitform()
-    {
-        document.getElementById('myForm').submit();
-    }
-    
-    window.onload = submitform ;
-</script>
-
 
 
 <script type="text/javascript">
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(GeoL);
-        function GeoL(position) {
-          document.getElementById('lat').value = position.coords.latitude;
-          document.getElementById('lng').value = position.coords.longitude;
-        }
-    }
-    else {
-      console.log('Geolocation is not supported for this Browser/OS version yet.');
-    }
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(GeoL);
+  }
+  else {
+    console.log('Geolocation is not supported for this Browser/OS version yet.');
+  }
+  
+  function GeoL(position) {
+    document.getElementById("lat").value = position.coords.latitude;
+    document.getElementById("lng").value = position.coords.longitude;
+    submitform();
+  }
+        
+  function submitform() {
+    document.getElementById('myForm').submit();
+  }
+    
 </script>
+
+
+

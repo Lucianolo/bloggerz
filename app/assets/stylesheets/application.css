@@ -141,3 +141,12 @@ hr {
     vertical-align: bottom;
     width: 100px;
 }
+
+.navbar-inverse .nav li.dropdown.open > .dropdown-toggle, .navbar-inverse .nav li.dropdown.active > .dropdown-toggle, .navbar-inverse .nav li.dropdown.open.active > .dropdown-toggle {
+    background-color: #1b1b1b;
+    height: auto;
+}
+
+.ui {
+    color:#FFF;
+}

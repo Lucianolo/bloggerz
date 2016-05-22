@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
 
  
+  resources :conversations do
+    resources :messages
+  end
   
   get 'user_notifications/index'
 
@@ -25,7 +28,7 @@ Rails.application.routes.draw do
   
   get 'geocoding', to: 'geocoding#new'
   
-  get 'geocoding/up', to: 'geocoding#update', as: :para
+  put 'geocoding/up', to: 'geocoding#update', as: :para
   
   get 'swaps/:id/accept', to: 'swaps#accept', as: :swap_accepted
   

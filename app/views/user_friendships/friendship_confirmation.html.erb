@@ -42,6 +42,7 @@
                 </div>
                 <div class="span4">
                     <strong><%= link_to User.find(user.friend_id).full_name, profile_path(User.find(user.friend_id).profile_name) %></strong>
+                    <%= link_to "Send Message", conversations_path(sender_id: user.id, recipient_id: user.friend_id), method: 'post' %>
                 </div>
             </div>
     <% end %>

@@ -17,6 +17,7 @@
               
               <% if (current_user!=nil && current_user.id!=@user.id ) %>
                 <% if current_user.has_friend(@user.id) %>
+                  <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post' %>
                   <%= link_to "Delete Friendship", user_friendship_path(@user), :method => :delete , class: "btn btn-danger"%>
                 <% else %>
                     <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
