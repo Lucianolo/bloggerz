@@ -1,31 +1,45 @@
-<% if @over_ten %>
- <%= link_to 'Show Previous', '?m=all' %>
-<% end %>
-<div class="ui segment">
+<div class="ui">
+    <% if @over_ten %>
+     <%= link_to 'Show Previous', '?m=all' %>
+    <% end %>
+    
  <% @messages.each do |message| %>
   <% if message.body %>
    <% user = User.find(message.user_id) %>
    <div class="item">
-    <div class="content">
-     <div class="header text"><strong><%= user.first_name %></strong>     <%= message.message_time %></div>
-      <div class="list">
-       <div class="item text">
-        <i class="right triangle icon"></i>
-         <%= message.body %>
-      </div>
+        <% if user == current_user %>
+            <div class="header bigger-text" style="margin-bottom:0px">
+                <strong><%= user.first_name %></strong>
+                <p style="text-align:right;margin-bottom:0px"><%= message.message_time %></p>
+            </div>
+            <p class = "triangle-border-left row">
+                
+                <span class="span2"><%= image_tag user.avatar_url(:thumb) , :style => "position:absolute;left:0px;top:0px;"%></span>
+                
+                <span class="span10" style="position:absolute;left:100px;bottom:15px;top:15px;text-align:left"><%= message.body %></span>
+              
+            </p>
+        <% else %>
+            <div class="header bigger-text" style="margin-bottom:0px">
+                <strong><%= user.first_name %></strong>
+                <p style="text-align:right;margin-bottom:0px"><%= message.message_time %></p>
+            </div>
+            <p class = "triangle-border-right row">
+                <span class="span10" style="position:absolute;right:120px;bottom:15px;top:15px;text-align:right"><%= message.body %></span>
+                <span class="span2"><%= image_tag user.avatar_url(:thumb) , :style => "position:absolute;right:0px;top:0px;"%></span>
+            </p>
+        <% end %>
     </div>
-   </div>
- </div>
- <% end %>
+<% end %>
 <% end %>
 </div>
 
-<%= form_for [@conversation, @message], html: {class: "ui reply form ", style: "text-align:center"} do |f| %>
+<%= form_for [@conversation, @message], html: {class: "ui form ", style: "text-align:center"} do |f| %>
  <div class="field">
-   <%= f.text_area :body, class: "form-control" %>
+   <%= f.text_area :body, class: "form-actions" %>
  </div>
  <%= f.text_field :user_id, value: current_user.id, type: "hidden" %>
  <div>
-   <%= f.submit "Add Reply", class: "ui blue labeled submit icon button" %>
+   <%= f.submit "Reply", class: "btn btn-success" %>
  </div>
 <% end %>

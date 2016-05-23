@@ -56,6 +56,10 @@ body {
     color: #f6f6f6; font-family: 'Orienta', sans-serif; font-size: 16px; line-height: 24px; margin: 0 0 24px; text-align: center;
 }
 
+.bigger-text{
+    color: #f6f6f6; font-family: 'Orienta', sans-serif; font-size: 20px; line-height: 24px; margin: 0 0 24px; text-align: center;
+}
+
 #book_description{
     color: #000000;
 }
@@ -149,4 +153,38 @@ hr {
 
 .ui {
     color:#FFF;
+    margin-top: 2em;
+}
+
+.triangle-border-left{
+    margin-left: 3em;
+    position: relative;
+    padding: 35px;
+    margin: 1em 0 3em;
+    border: 5px solid #5a8f00;
+    color: #333;
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-family: 'Orienta', sans-serif; font-size: 16px; line-height: 24px; text-align: center;
+    
+}
+.triangle-border-right{
+    margin-right: 3em;
+    position: relative;
+    padding: 35px;
+    margin: 1em 0 3em;
+    border: 5px solid #5a8f00;
+    color: #333;
+    background: #fff;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    font-family: 'Orienta', sans-serif; font-size: 16px; line-height: 24px; text-align: center;
+    
+}
+
+.time {
+    text-align: right;
 }

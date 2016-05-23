@@ -82,3 +82,5 @@ group :development do
   gem 'spring'
 end
 
+
+gem 'semantic-ui-sass', github: 'doabit/semantic-ui-sass'

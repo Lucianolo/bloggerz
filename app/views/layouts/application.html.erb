@@ -35,10 +35,10 @@
 <body>
 <div class="container">
   
-  <div class="navbar navbar-fixed-top navbar-inverse">
-    <div class="navbar-inner">
-      <div class="container">
-        <div class="row">
+  <div class="navbar navbar-fixed-top navbar-inverse" style="height:3.5em">
+    <div class="navbar-inner" style="height:3.5em" >
+      <div class="container" style="height:3.5em">
+        <div class="row" style="height:3.5em">
             <a class="brand" href="/">
               GroupBooks.
             </a>
@@ -57,12 +57,10 @@
                   </li>
                   
                   <!-- barra di ricerca -->
-                  <li style="padding-left:1em; padding-bottom:0.5em; width:180px">
-                  <%= form_tag search_path(:search), :method => 'get' do %>
-                    <p>
-                      <%= text_field_tag :search, params[:search] , placeholder: "User"%>
-                      <%= submit_tag "Search", :name => nil , :class =>"btn btn-info" , :style => "visibility:hidden"%>
-                    </p>
+                  <li style="padding-left:1em; width:15em; height:3em">
+                  <%= form_tag search_path(:search), :style => "height:1.2em", :method => 'get' do %>
+                      <%= text_field_tag :search, params[:search] , placeholder: "User", :style => "height:1.2em"%>
+                      <%= submit_tag "Search", :name => nil , :class =>"btn btn-info" , :style => "visibility:hidden; height:0px; width:0px;margin-top:0px"%>
                   <% end %>
                   </li>
                   
@@ -77,9 +75,14 @@
                   <li><%= link_to "Log Out", logout_path %></li>
         <!-- TODO : aggiungere la notifica su questa icona   -->
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Notifications</a>
+                    <% swap_count = Swap.where(other_id: current_user, status: "pending").count %>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Notifications 
+                      <% if swap_count > 0 %>
+                        <span class="badge"><%= swap_count %></span>
+                      <% end %>
+                    </a>
                     <ul class="dropdown-menu">
-                      <li><%= link_to Swap.where(other_id: current_user, status: "pending").count.to_s+" Swaps", user_notifications_index_path %></li>
+                      <li><%= link_to swap_count.to_s+" Swaps", user_notifications_index_path %></li>
                       <li><%= link_to "Messages", conversations_path %></li>
                     </ul>
                   </li>

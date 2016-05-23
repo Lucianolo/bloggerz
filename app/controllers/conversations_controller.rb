@@ -16,6 +16,10 @@ class ConversationsController < ApplicationController
         redirect_to conversation_messages_path(@conversation)
     end
     
+    
+    def unread_count
+        Conversation.where(sender_id: current_user).messages.read?
+    end
     private
     
         def conversation_params
