@@ -1,4 +1,5 @@
 class GeocodingController < ApplicationController
+    before_filter :authenticate_user!
     
     def new
        render 'devise/sessions/create' 

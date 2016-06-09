@@ -33,6 +33,7 @@ Rails.application.routes.draw do
   get 'swaps/:id/accept', to: 'swaps#accept', as: :swap_accepted
   
   get 'swaps/:id/decline', to: 'swaps#decline', as: :swap_declined
+  
   post 'swaps/:book_id,:other_book_id', to: 'swaps#create', as: :swaps
   
   get 'friends', to: 'user_friendships#show', as: :friendships
