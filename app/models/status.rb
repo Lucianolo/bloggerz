@@ -1,4 +1,5 @@
 class Status < ActiveRecord::Base
+    resourcify
     belongs_to :user
     
     validates :content, presence: true, 

@@ -11,6 +11,7 @@ class CallbacksController < Devise::OmniauthCallbacksController
         end
         
         @user.skip_confirmation! 
+        @user.add_role "user"
         
         sign_in_and_redirect @user
     end

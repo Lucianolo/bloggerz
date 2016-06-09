@@ -1,4 +1,5 @@
 class Book < ActiveRecord::Base
+    resourcify
     acts_as_votable
     
     belongs_to :user

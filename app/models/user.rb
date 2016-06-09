@@ -1,5 +1,6 @@
 require 'random_word_generator'
 class User < ActiveRecord::Base
+  rolify
   
   acts_as_voter
   

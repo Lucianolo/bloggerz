@@ -53,20 +53,20 @@
             <% if user_signed_in? %>
               <div style="white-space:nowrap">
                 <span class="label label-important">Owner </span>
-                <strong style="padding-left:1em;"><%= User.find(book.user_id).full_name %>.</strong>
+                <strong style="padding-left:1em;"><%= link_to User.find(book.user_id).full_name, profile_path(User.find(book.user_id).profile_name) %>.</strong>
               </div>
             <% end %>
             <br>
             <div class="meta">
               <%= link_to time_ago_in_words(book.created_at)+" ago", book %>
-              <% if current_user %>
-                <% if book.user_id == current_user.id %>
+              
+                <% if ((current_user && book.user_id == current_user.id) || (current_user && (current_user.has_role? :moderator))) %>
                   <span class="admin">
                     | <%= link_to "Edit", edit_book_path(book) %> |
                     <%= link_to "Delete", book, method: :delete, data: { confirm: "Are you sure you want to Delete this book?" } %>
                   </span>
                 <% end %>
-              <% end %>
+              
             </div>
           </div>
           <!-- form della proposta di scambio , verifichiamo che l'utente sia loggato -->

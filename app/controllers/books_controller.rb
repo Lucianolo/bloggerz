@@ -23,7 +23,7 @@ class BooksController < ApplicationController
   # GET /books/1/edit
   def edit
     # Only the book's owner can edit a book 
-    if current_user.id != @book.user_id
+    if ((current_user.id != @book.user_id) && !(current_user.has_role? :moderator))
       flash[:alert] = "You haven't got the permissions to edit this book."
       redirect_to @book
     end
@@ -151,6 +151,10 @@ class BooksController < ApplicationController
   # DELETE /books/1
   # DELETE /books/1.json
   def destroy
+    if ((current_user.id != @book.user_id) && !(current_user.has_role? :moderator))
+      flash[:alert] = "You haven't got the permissions to edit this book."
+      redirect_to @book
+    end
     @book.destroy
     respond_to do |format|
       Swap.where(book_id: @book.id).delete_all
