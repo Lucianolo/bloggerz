@@ -19,9 +19,12 @@ class CommentsController < ApplicationController
     
     def destroy  
       @comment = @book.comments.find(params[:id])
-    
-      @comment.destroy
-      flash[:success] = "Comment deleted :("
+      
+      if (@comment.user == current_user || (current_user.has_role? :moderator))
+          @comment.destroy
+          flash[:success] = "Comment deleted :("
+      end
+      
       redirect_to :back
     end  
     

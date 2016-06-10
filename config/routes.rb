@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   
   get 'geocoding', to: 'geocoding#new'
   
-  put 'geocoding/up', to: 'geocoding#update', as: :para
+  post 'geocoding/up', to: 'geocoding#update', as: :para
   
   get 'swaps/:id/accept', to: 'swaps#accept', as: :swap_accepted
   
@@ -43,6 +43,10 @@ Rails.application.routes.draw do
   get 'friends/decline/:id', to: 'user_friendships#decline', as: :decline_friendship
   
   get 'search-results/:id', to: 'profiles#index', as: :search
+  
+  post 'manager/upgrade/:id', to: 'manager#upgrade', as: :upgrade 
+  
+  post 'manager/downgrade/:id', to: 'manager#downgrade', as: :downgrade
  
   devise_for :users, :controllers => { registrations: 'registrations' , omniauth_callbacks: 'callbacks', sessions: 'custom_sessions'}
   

@@ -16,18 +16,22 @@
             
               
               <% if (current_user!=nil && current_user.id!=@user.id ) %>
-                <% if current_user.has_friend(@user.id) %>
-                  <%= link_to "Delete Friendship", user_friendship_path(@user), :method => :delete , class: "btn btn-danger"%>
-                <% else %>
-                    <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post' %>
-                    <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
-                <% end %>
-              <% end %>
-              
-              <% if current_user!=nil && (current_user.has_role? :moderator) %>
-                <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
-              <% elsif (current_user!=nil && current_user.id=@user.id ) %>
-                <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
+                  <% if current_user.has_role? :manager %>
+                  
+                      <% if @user.has_role? :user %>
+                        <%= link_to "Upgrade to Moderator", upgrade_path(id: @user.id), method: 'post' %>
+                      <% else %>
+                        <%= link_to "Downgrade to User", downgrade_path(id: @user.id), method: 'post' %>
+                      <% end %>
+                  <% end %>
+                  <% if current_user.has_friend(@user.id) %>
+                      <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post' %>
+                      <%= link_to "Delete Friendship", user_friendship_path(@user), :method => :delete , class: "btn btn-danger"%>
+                  <% else %>
+                      <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>
+                  <% end %>
+              <% else %>
+                  <%= link_to "Update Profile", edit_user_registration_path, class: "btn btn-info" %>
               <% end %>
             
         

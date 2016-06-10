@@ -13,7 +13,10 @@
         <%= f.input :password , label: false, placeholder: "Password" %>
         <% if @minimum_password_length %>
           <em>(<%= @minimum_password_length %> characters minimum)</em>
+          <br>
+          <em>(at least one char of [A-Z] and one number)</em>
         <% end %><br />
+        
         <%= f.input :password_confirmation , label: false, placeholder: "Repeat Password" %>
         <br>
         <label>Profile Image</label>

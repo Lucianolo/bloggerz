@@ -49,6 +49,9 @@
     <span class="label label-important">Description </span>
     <br><br>
     <p><%= @book.description.html_safe %></p>
+    <% if current_user.has_role? :moderator %>
+        <li><%= link_to "Edit description", edit_book_path(@book) %></li>
+    <% end %>
 </div>
 <% if @book.comments %>
     <div class="comments well">
@@ -69,7 +72,7 @@
                         <%= comment.content %>
                     </div>
                 </div>        
-                <% if comment.user == current_user %>
+                <% if (comment.user == current_user || (current_user.has_role? :moderator)) %>
                     <div class="delete-comment">
                         <%= link_to "x", book_comment_path(@book, comment), method: :delete, class: "close",  data: { confirm: "Are you sure?" } %>
                     </div>

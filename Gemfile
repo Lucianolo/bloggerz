@@ -58,6 +58,8 @@ gem 'cancancan', '~> 1.14.0'
 
 gem 'rolify'
 
+gem 'devise_security_extension'
+
 
 group :test do
   gem 'shoulda'

@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
                               with: /\A[a-zA-Z0-9_-]*\z/,
                               message: "Must be formatted correctly."
                             }
+  validates :password, :format => { 
+                                    :with =>  /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+                                    :message => "Password should contain at least 8 characters, one upper case, one lower case and one numeric." 
+  }
   
   has_many :statuses
   has_many :user_friendships
