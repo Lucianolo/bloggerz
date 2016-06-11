@@ -60,6 +60,14 @@ gem 'rolify'
 
 gem 'devise_security_extension'
 
+gem 'rspec'
+
+group :development, :test do
+  gem 'rspec-rails', '~> 3.4'
+end
+
+gem 'autotest-rails', :group => [:development, :test]
+
 
 group :test do
   gem 'shoulda'
