@@ -1,6 +1,6 @@
 
 
-<%= simple_form_for(current_user, url: para_path, html: { method: :put, id: "myForm"}) do |f| %>
+<%= simple_form_for(current_user, url: para_path, html: { method: :post, id: "myForm"}) do |f| %>
     <%= f.hidden_field :user_lat, :id => "lat" %>
     <%= f.hidden_field :user_lng, :id => "lng" %>
     <%= f.button :submit , :style => "visibility:hidden" %>

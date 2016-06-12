@@ -8,7 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
     #User.where(email: params[:user][:email]).first.update(user_lat: user_lat, user_lng: user_lng)
     @user.update(user_lat: user_lat, user_lng: user_lng)
     @user.add_role "user"
-    UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
+    #UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
   end
   
   def destroy

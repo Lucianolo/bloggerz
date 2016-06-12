@@ -17,11 +17,14 @@ class BooksControllerTest < ActionController::TestCase
   end
 
   test "should create book" do
-    assert_difference('Book.count') do
+    @user=create(:user)
+    #assert_difference('Book.count') do
       post :create, book: {  }
-    end
-
+      
+    #end
+    
     assert_redirected_to book_path(assigns(:book))
+    assert_equal 'Book was successfully create.', flash[:notice]
   end
 
   test "should show book" do
@@ -40,10 +43,11 @@ class BooksControllerTest < ActionController::TestCase
   end
 
   test "should destroy book" do
-    assert_difference('Book.count', -1) do
+    #assert_difference('Book.count', -1) do
       delete :destroy, id: @book
-    end
-
+    #end
+    
     assert_redirected_to books_path
+    assert_equal 'Book was successfully destroyed.', flash[:notice]
   end
 end

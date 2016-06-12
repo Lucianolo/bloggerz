@@ -60,10 +60,13 @@ gem 'rolify'
 
 gem 'devise_security_extension'
 
-gem 'rspec'
+gem 'capybara'
 
-group :development, :test do
-  gem 'rspec-rails', '~> 3.4'
+gem "factory_girl_rails", "~> 4.0"
+
+
+group :development, :test, :production do
+  gem 'rspec-rails', '~> 3.0'
 end
 
 gem 'autotest-rails', :group => [:development, :test]
