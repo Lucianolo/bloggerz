@@ -126,6 +126,7 @@ RSpec.feature "Notification", :type => :feature do
     
     fill_in "email", :with => "stricman1@hotmail.it"
     fill_in "password", :with => "Qwertyu11"
+    click_button "Log In"
     
     click_link "Notifications"
     

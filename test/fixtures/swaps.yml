@@ -4,8 +4,12 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
-# column: value
-#
+one:
+    user_id: <%= ActiveRecord::FixtureSet.identify(:lux) %>
+    other_id: <%= ActiveRecord::FixtureSet.identify(:lucius) %>
+    book_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+    status: "pending"
+    other_book_id: <%= ActiveRecord::FixtureSet.identify(:two) %>
+
 two: {}
 #  column: value

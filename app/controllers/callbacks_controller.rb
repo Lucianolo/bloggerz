@@ -10,7 +10,7 @@ class CallbacksController < Devise::OmniauthCallbacksController
             UserNotifier.welcome_email(@user).deliver_now unless @user.invalid?
         end
         
-        @user.skip_confirmation! 
+        #@user.skip_confirmation! 
         @user.add_role "user"
         
         sign_in_and_redirect @user

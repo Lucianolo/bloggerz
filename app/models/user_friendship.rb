@@ -3,7 +3,7 @@ class UserFriendship < ActiveRecord::Base
     belongs_to :user
     belongs_to :friend, class_name: 'User', foreign_key: 'friend_id'
     
-    
+    validates :user_id, :friend_id, presence: true
     #State Machine ci permette di assegnare uno stato alla UserFriendship 
     # in modo tale da permettere a un utente di accettare o meno.
     #state_machine :state, initial: :pending do
@@ -18,10 +18,6 @@ class UserFriendship < ActiveRecord::Base
     # per inviare le mail di richiesta amicizia dobbiamo prima generare un mailer :
     # rails generate mailer user_notifier
     # Definiamo poi il metodo usato:
-    
-
-
-    
     def send_request_email
         UserNotifier.friend_requested(self).deliver_now
     end

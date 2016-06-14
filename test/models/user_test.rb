@@ -33,7 +33,7 @@ class UserTest < ActiveSupport::TestCase
   
   test "a user should have a profile name without spaces" do
     user = User.new(first_name: 'Lucius', last_name: 'Malfoy', email: 'lucius@malfoy.it')
-    user.password = user.password_confirmation = 'password'
+    user.password = user.password_confirmation = 'Qwertyu1'
 
     user.profile_name = "My Profile With Spaces"
     assert !user.save
@@ -43,7 +43,7 @@ class UserTest < ActiveSupport::TestCase
   
   test "a user should have a correctly formatted profile name" do
     user = User.new(first_name: 'Lucius', last_name: 'Malfoy', email: 'lucius4@malfoy.it')
-    user.password = user.password_confirmation = 'password'
+    user.password = user.password_confirmation = 'Qwertyu1'
     
     user.profile_name ='zanna_bianca'
     assert user.valid?
@@ -56,9 +56,9 @@ class UserTest < ActiveSupport::TestCase
   end  
   
   test "that creating friendships on a user works" do
-    users(:lux).friends << users(:vitaletti)
+    users(:lux).friends << users(:antonello)
     users(:lux).friends.reload
-    assert users(:lux).friends.include?(users(:vitaletti))
+    assert users(:lux).friends.include?(users(:antonello))
   end
   
 end

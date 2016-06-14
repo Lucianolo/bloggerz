@@ -5,6 +5,11 @@ class SwapsController < ApplicationController
     
     def create
         book = Book.where(id: params[:book_id]).first
+        
+        if params[:other_book].nil?
+            flash[:alert] = "You have to add a book in order to request a swap!"
+            redirect_to root_path and return
+        end
         if current_user
             user_id = current_user.id
             other_id = book.user_id
@@ -60,9 +65,7 @@ class SwapsController < ApplicationController
         end
     end
     
-    
     private
-    
     def swap_params
         params.require(:book).permit(:book_id, :other_book_id)
     end

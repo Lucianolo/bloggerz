@@ -159,7 +159,7 @@ scenario "edit book" do
     fill_in "Password", :with => "Qwertyu1"
     fill_in "Repeat Password", :with => "Qwertyu1"
     click_button "Sign up"
-
+    
     visit "/books/new"
     
     fill_in "ISBN", :with => "8845292614"

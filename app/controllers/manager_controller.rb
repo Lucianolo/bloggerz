@@ -6,10 +6,10 @@ class ManagerController < ApplicationController
             user=User.where(id: params[:id]).first
             user.roles.first.update(:name=>"moderator")
             flash[:notice] = "Operation success."
-            redirect_to :back
+            redirect_to books_path
         else
             flash[:alert] = "You haven't got the permissions to edit this book."
-            redirect_to :back
+            redirect_to books_path
         end
     end
     
@@ -18,10 +18,10 @@ class ManagerController < ApplicationController
             user=User.where(id: params[:id]).first
             user.roles.first.update(:name=>"user")
             flash[:notice] = "Operation success."
-            redirect_to :back
+            redirect_to books_path
         else
             flash[:alert] = "You haven't got the permissions to edit this book."
-            redirect_to :back
+            redirect_to books_path
         end
     end
     

@@ -8,10 +8,12 @@ lux:
 lucius: 
     first_name: "Lucius"
     last_name: "Malfoy"
+    profile_name: 'Lux_Luthor1'
     email: "lucius@malfoy.it"
+    encrypted_password: "$2a$10$qBi0nk0G8v/AMNvZKUUeIeoMOi4GHTlXweiSaI4oMOcdKvvCd0dYa"
 
-vitaletti:
+antonello:
     first_name: "Andrea"
-    last_name: "Vitaletti"
-    email: "luciano.ursache@gmail.com"
-    profile_name: "andrea_vit"
+    last_name: "lollo"
+    email: "egeominotti@gmail.com"
+    profile_name: "andrea_lollo"

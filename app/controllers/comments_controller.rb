@@ -11,9 +11,9 @@ class CommentsController < ApplicationController
     
       if @comment.save
         flash[:success] = "You commented the hell out of that book!"
-        redirect_to :back
+        redirect_to @book
       else
-         redirect_to :back
+         redirect_to @book
       end
     end
     
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
           flash[:success] = "Comment deleted :("
       end
       
-      redirect_to :back
+      redirect_to @book
     end  
     
     private

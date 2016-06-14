@@ -4,7 +4,7 @@ class UserFriendshipsController < ApplicationController
     def new
         if params[:friend_id]
             @friend = User.where(profile_name: params[:friend_id]).first
-            
+           
             raise ActiveRecord::RecordNotFound if @friend.nil?
             
             @user_friendship = current_user.user_friendships.new(friend: @friend)
@@ -101,7 +101,7 @@ class UserFriendshipsController < ApplicationController
     end
     
     def destroy
-        @friend_id = User.where(profile_name: params[:id])
+        @friend_id = User.where(profile_name: params[:id]).first
         @friendship_friend = UserFriendship.where(user_id: @friend_id, friend_id: current_user).first
         @friendship_user = UserFriendship.where(user_id: current_user, friend_id: @friend_id).first
         if !@friendship_friend.nil?

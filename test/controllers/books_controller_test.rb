@@ -6,48 +6,49 @@ class BooksControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
+    sign_in users(:lux)
     get :index
     assert_response :success
-    assert_not_nil assigns(:books)
+    #assert_not_nil assigns(:books)
   end
 
   test "should get new" do
+    sign_in users(:lux)
     get :new
     assert_response :success
   end
 
   test "should create book" do
-    @user=create(:user)
-    #assert_difference('Book.count') do
-      post :create, book: {  }
-      
-    #end
-    
-    assert_redirected_to book_path(assigns(:book))
-    assert_equal 'Book was successfully create.', flash[:notice]
+    sign_in users(:lux)
+    assert_difference('Book.count') do
+      post :create, book: { isbn: 8845292614 }
+    end
   end
 
   test "should show book" do
+    sign_in users(:lux)
     get :show, id: @book
     assert_response :success
   end
 
-  test "should get edit" do
+  test "should can't edit" do #user cant edit book if isn't owner
+    sign_in users(:lux)
     get :edit, id: @book
-    assert_response :success
+    assert_redirected_to @book
   end
 
   test "should update book" do
-    patch :update, id: @book, book: {  }
+    sign_in users(:lux)
+    put :update, id: @book, book: { content: "MyText" }
     assert_redirected_to book_path(assigns(:book))
   end
 
-  test "should destroy book" do
-    #assert_difference('Book.count', -1) do
+  test "should can't destroy book" do #user cant destroy book if isn't owner
+    sign_in users(:lux)
+    #assert_difference('Book.count') do
       delete :destroy, id: @book
     #end
     
-    assert_redirected_to books_path
-    assert_equal 'Book was successfully destroyed.', flash[:notice]
+    assert_redirected_to @book
   end
 end

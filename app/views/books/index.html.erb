@@ -6,7 +6,7 @@
 </div>
 
     <% @books.each do |book| %>
-    <% if book.user_id!='' %>
+    <% if book!=nil %>
       <div>
         <div id="book" class="row well slideUp" style="margin: 1em 0 1.5em 0">
           <div class="span2">
@@ -50,14 +50,14 @@
             </div>
             <br>
             
-            <!-- Prima di mostrare il proprietario del libro controlliamo che l'utente sia loggato 
-            < if user_signed_in? %>
+            <!-- Prima di mostrare il proprietario del libro controlliamo che l'utente sia loggato -->
+            <% if user_signed_in? %>
               <div style="white-space:nowrap">
                 <span class="label label-important">Owner </span>
-                <strong style="padding-left:1em;"><= link_to User.find(book.user_id).full_name, profile_path(User.find(book.user_id).profile_name) %>.</strong>
+                <strong style="padding-left:1em;"><%= link_to User.find(book.user_id).full_name, profile_path(User.find(book.user_id).profile_name) %>.</strong>
               </div>
-            < end %>
-            -->
+            <% end %>
+            
             <br>
             <div class="meta">
               <%= link_to time_ago_in_words(book.created_at)+" ago", book %>

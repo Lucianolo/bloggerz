@@ -4,8 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one: {}
+one: 
+    user_id: users(:lux)
+    isbn:   "8845292614"
+    description: "ciao"
+
 # column: value
 #
-two: {}
+two: 
+    user_id: users(:lucius)
+    isbn:   "9780439023528"
+    description: "sddsd"
 #  column: value

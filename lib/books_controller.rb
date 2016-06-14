@@ -1,5 +1,6 @@
 class BooksController
-
+  before_filter :authenticate_user!, only: [:show, :new, :create, :edit, :update, :destroy, :like, :unlike ]
+  before_action :set_book, only: [:show, :edit, :update, :destroy, :like, :unlike, :undislike, :dislike]
   # GET /books
   # GET /books.json
   def index

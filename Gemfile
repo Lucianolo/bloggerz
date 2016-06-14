@@ -62,8 +62,7 @@ gem 'devise_security_extension'
 
 gem 'capybara'
 
-gem "factory_girl_rails", "~> 4.0"
-
+gem 'database_cleaner'
 
 group :development, :test, :production do
   gem 'rspec-rails', '~> 3.0'

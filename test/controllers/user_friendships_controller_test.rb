@@ -1,16 +1,58 @@
 require 'test_helper'
 
 class UserFriendshipsControllerTest < ActionController::TestCase
-  
-  context "#new" do 
-    context "when not logged in" do
-      should "redirect to the login page" do
-        get :new
-        assert_response :redirect
-        assert_redirected_to new_user_session_path
+
+   
+      setup do
+        sign_in users(:lux)
       end
-    end
     
+      test "should create friendship" do
+        assert_difference("UserFriendship.count") do
+          @friendship = UserFriendship.create(user_id: users(:lux).id, friend_id: users(:lucius).id, state: "pending")
+          @friendship.save!
+        end
+        assert_equal @friendship.state, "pending"
+        assert redirect_to profile_path(users(:lucius))
+      end
+      
+      test "a user can accept a friendship" do
+        @friendship = UserFriendship.create(user_id: users(:lux).id, friend_id: users(:lucius).id, state: "pending")
+        sign_in users(:lucius) do
+          get :accept, id: @friendship.id
+          assert_equal @friendship.state, "accepted"
+          assert redirect_to friendships_path
+        end
+      end
+      
+      test "a user can decline a friendship" do
+        @friendship = UserFriendship.create(user_id: users(:lux).id, friend_id: users(:lucius).id, state: "pending")
+        sign_in users(:lucius) do
+          get :decline, id: @friendship.id
+          assert_equal @friendship.state, "declined"
+          assert redirect_to friendships_confirmation_path
+        end
+      end
+      
+      test "a user can delete a friendship" do
+        @friendship = UserFriendship.create(user_id: users(:lux).id, friend_id: users(:lucius).id, state: "accepted")
+        @friendship.save!
+        
+        assert_difference("UserFriendship.count", -1) do
+          @friendship.destroy!
+        end
+      end
+      
+      test "a user can view his friends list" do
+        get :show do 
+          assert redirect_to friendships_confirmation_path
+        end
+      end
+      
+      
+      
+    
+=begin    
     context "when logged in" do
       setup do
         sign_in users(:lux)
@@ -121,4 +163,5 @@ class UserFriendshipsControllerTest < ActionController::TestCase
       
     end
   end
+=end
 end

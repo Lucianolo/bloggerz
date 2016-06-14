@@ -154,13 +154,14 @@ class BooksController < ApplicationController
     if ((current_user.id != @book.user_id) && !(current_user.has_role? :moderator))
       flash[:alert] = "You haven't got the permissions to edit this book."
       redirect_to @book
-    end
-    @book.destroy
-    respond_to do |format|
-      Swap.where(book_id: @book.id).delete_all
-      Swap.where(other_book_id: @book.id).delete_all
-      format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
-      format.json { head :no_content }
+    else
+        @book.destroy
+        respond_to do |format|
+          Swap.where(book_id: @book.id).delete_all
+          Swap.where(other_book_id: @book.id).delete_all
+          format.html { redirect_to books_url, notice: 'Book was successfully destroyed.' }
+          format.json { head :no_content }
+        end
     end
   end
   
