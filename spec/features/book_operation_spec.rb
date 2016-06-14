@@ -13,6 +13,8 @@ RSpec.feature "book_operation", :type => :feature do
     fill_in "Password", :with => "Qwertyu1"
     fill_in "Repeat Password", :with => "Qwertyu1"
     click_button "Sign up"
+    
+    
 
     visit "/books/new"
     

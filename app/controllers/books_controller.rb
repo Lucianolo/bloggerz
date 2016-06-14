@@ -2,8 +2,6 @@ class BooksController < ApplicationController
   before_filter :authenticate_user!, only: [:show, :new, :create, :edit, :update, :destroy, :like, :unlike ]
   before_action :set_book, only: [:show, :edit, :update, :destroy, :like, :unlike, :undislike, :dislike]
 
-
- 
   # GET /books
   # GET /books.json
   def index
@@ -24,7 +22,7 @@ class BooksController < ApplicationController
   def edit
     # Only the book's owner can edit a book 
     if ((current_user.id != @book.user_id) && !(current_user.has_role? :moderator))
-      flash[:alert] = "You haven't got the permissions to edit this book."
+      flash[:alert] = "Non hai i permessi per modificare questo libro."
       redirect_to :book
     end
   end
@@ -115,8 +113,6 @@ class BooksController < ApplicationController
         end
         @book = current_user.books.new(book_params)
       
-      
-  
         respond_to do |format|
           if @book.save
             if @description.nil?
