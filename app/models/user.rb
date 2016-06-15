@@ -21,8 +21,16 @@ class User < ActiveRecord::Base
                               with: /\A[a-zA-Z0-9_-]*\z/,
                               message: "Must be formatted correctly."
                             }
-  validates :password, :format => { 
-                                    :with =>  /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
+                            
+  PASSWORD_FORMAT = /\A
+  (?=.{8,})          # Must contain 8 or more characters
+  (?=.*\d)           # Must contain a digit
+  (?=.*[a-z])        # Must contain a lower case character
+  (?=.*[A-Z])        # Must contain an upper case character
+  #(?=.*[[:^alnum:]]) # Must contain a symbol
+  /x
+  validates :password,:if => :password_required?, :format => { 
+                                    :with =>  PASSWORD_FORMAT,#/(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/,
                                     :message => "Password should contain at least 8 characters, one upper case, one lower case and one numeric." 
   }
   
@@ -53,7 +61,9 @@ class User < ActiveRecord::Base
         user.first_name = first_name
         user.last_name = last_name
         user.profile_name = first_name+"_"+last_name
-        user.password = RandomWordGenerator.composed(2, 10, '_')
+        o = [('a'..'z'), ('A'..'Z'), (1..9)].map { |i| i.to_a }.flatten
+        string = (0...14).map { o[rand(o.length)] }.join
+        user.password = "Qwertyu1"#string#RandomWordGenerator.composed(2, 10, '_')
         user.remote_avatar_url = user.large_image 
       end
   end

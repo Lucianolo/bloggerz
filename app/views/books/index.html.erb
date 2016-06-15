@@ -54,7 +54,6 @@
             <% if user_signed_in? %>
               <div style="white-space:nowrap">
                 <span class="label label-important">Owner </span>
-                <% puts(book.user_id) %>
                  <strong style="padding-left:1em;"><%= link_to User.find(book.user_id).full_name, profile_path(User.find(book.user_id).profile_name) %>.</strong>
               </div>
             <% end %>
