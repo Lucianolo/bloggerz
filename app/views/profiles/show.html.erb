@@ -19,13 +19,13 @@
                   <% if current_user.has_role? :manager %>
                   
                       <% if @user.has_role? :user %>
-                        <%= link_to "Upgrade to Moderator", upgrade_path(id: @user.id), method: 'post' %>
+                        <%= link_to "Upgrade to Moderator", upgrade_path(id: @user.id), method: 'post' ,class: "btn btn-success"%>
                       <% else %>
-                        <%= link_to "Downgrade to User", downgrade_path(id: @user.id), method: 'post' %>
+                        <%= link_to "Downgrade to User", downgrade_path(id: @user.id), method: 'post' , class: "btn btn-danger"%>
                       <% end %>
                   <% end %>
                   <% if current_user.has_friend(@user.id) %>
-                      <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post' %>
+                      <%= link_to "Send Message", conversations_path(sender_id: current_user.id, recipient_id: @user.id), method: 'post', class: "btn btn-info" %>
                       <%= link_to "Delete Friendship", user_friendship_path(@user), :method => :delete , class: "btn btn-danger"%>
                   <% else %>
                       <%= link_to "Add Friend", new_user_friendship_path(friend_id: @user), class: "btn btn-success" %>

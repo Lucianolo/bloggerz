@@ -21,4 +21,6 @@ class Book < ActiveRecord::Base
     def swaps_count
       count = Swap.where(book_id: self.id, status:"accepted").count + Swap.where(other_book_id: self.id, status: "accepted").count
     end
+    
+    
 end

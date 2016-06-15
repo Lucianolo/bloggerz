@@ -5,7 +5,13 @@ class BooksController < ApplicationController
   # GET /books
   # GET /books.json
   def index
-    @books = Book.order("created_at DESC").all
+    if(current_user)
+      @lat = current_user.user_lat
+      @lng = current_user.user_lng
+      @books = custom_sort(@lat, @lng)
+    else
+      @books = Book.order("created_at DESC").all
+    end
   end
 
   # GET /books/1
@@ -200,5 +206,17 @@ class BooksController < ApplicationController
     def add_book_description
       params.require(:book).permit(:description)
     end
+    
+    def custom_sort(lat, lng)
+      Book.all.sort do |a,b|
+        case
+        when a.distance(lat,lng) < b.distance(lat,lng)
+          -1
+        else
+          1
+        end
+      end
+    end
+
     
 end

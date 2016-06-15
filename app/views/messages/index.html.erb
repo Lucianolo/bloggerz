@@ -2,7 +2,7 @@
     <% if @over_ten %>
      <%= link_to 'Show Previous', '?m=all' %>
     <% end %>
-    
+<div id = "autorefresh">
  <% @messages.each do |message| %>
   <% if message.body %>
    <% user = User.find(message.user_id) %>
@@ -33,6 +33,7 @@
 <% end %>
 <% end %>
 </div>
+</div>
 
 <%= form_for [@conversation, @message], html: {class: "ui form ", style: "text-align:center"} do |f| %>
  <div class="field">
@@ -53,3 +54,4 @@
  
  setInterval('autoRefresh1()', 5000);
 </script-->
+
