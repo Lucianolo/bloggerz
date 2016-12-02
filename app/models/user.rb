@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
         user.profile_name = first_name+"_"+last_name
         o = [('a'..'z'), ('A'..'Z'), (1..9)].map { |i| i.to_a }.flatten
         string = (0...14).map { o[rand(o.length)] }.join
-        user.password = string#string#RandomWordGenerator.composed(2, 10, '_')
+        user.password = string
         user.remote_avatar_url = user.large_image 
       end
   end

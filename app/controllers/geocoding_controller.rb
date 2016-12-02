@@ -10,11 +10,6 @@ class GeocodingController < ApplicationController
         user_lat = params[:user][:user_lat]
         user_lng = params[:user][:user_lng]
         User.find(current_user.id).update(user_lat: user_lat, user_lng: user_lng)
-        #users.update_attributes(user_lat: user_lat, user_lng: user_lng)
-        #users.user_lat=user_lat
-        #users.user_lng=user_lng
-        #users.save
-        #puts(users.errors.full_messages)
         redirect_to root_path
     end
     
