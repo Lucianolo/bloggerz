@@ -299,7 +299,6 @@ DEPENDENCIES
   simple_form
   sinatra
   spring
-  sqlite3
   state_machines
   turbolinks
   uglifier (>= 1.3.0)
