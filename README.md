@@ -7,21 +7,17 @@
     ----------------------------------------------------------------- 
 
 
-Welcome to your Rails project on Cloud9 IDE!
+Social Network based on Book Swaps.
 
-To get started, just do the following:
+Written in Ruby on Rails
 
-1. Run the project with the "Run Project" button in the menu bar on top of the IDE.
-2. Preview your new app by clicking on the URL that appears in the Run panel below (https://bloggerz-lucianolo.c9users.io/).
+Preview link: https://groupbooks.herokuapp.com/
 
-Happy coding!
-The Cloud9 IDE team
+-------------------------------------------------
 
+Next features:
 
-## Support & Documentation
-
-Visit http://docs.c9.io for support, or to learn more about using Cloud9 IDE. 
-To watch some training videos, visit http://www.youtube.com/user/c9ide
-
-
-//todo lunghezza form isbn
+- Real-Time Chat
+- Real-Time Notifications
+- Design improvements
+- Book history (keeping track of swaps)
