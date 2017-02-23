@@ -53,7 +53,7 @@ gem 'image_magick'
 
 gem 'mini_magick'
 
-gem 'random-word-generator', '~> 0.0.1'
+#gem 'random-word-generator', '~> 0.0.1'
 
 gem 'omniauth-facebook', '~> 3.0.0'
 
