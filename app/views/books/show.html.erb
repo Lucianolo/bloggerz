@@ -4,7 +4,7 @@
         <div class="span2" style="margin: auto 2em auto 2em;">
             <%= link_to image_tag(@book.cover_uri), book_path(@book.id) %>
             <% unless @book.preview_link.nil? %>
-                    <%= link_to "Preview", @book.preview_link , class:"btn btn-success"%>
+                    <%= link_to "Preview", @book.preview_link , class:"btn btn-success", :target => 'blank' %>
             <% end %>
         </div>
         <div class="span3">

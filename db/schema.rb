@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609114856) do
+ActiveRecord::Schema.define(version: 20170223161135) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "books", force: :cascade do |t|
     t.integer  "user_id"
@@ -21,13 +24,13 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.text     "description"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.string   "isbn",         limit: 10
     t.float    "lat"
     t.float    "lng"
     t.string   "preview_link"
+    t.string   "isbn",         limit: 15
   end
 
-  add_index "books", ["user_id"], name: "index_books_on_user_id"
+  add_index "books", ["user_id"], name: "index_books_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
@@ -37,8 +40,8 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "comments", ["book_id"], name: "index_comments_on_book_id"
-  add_index "comments", ["user_id"], name: "index_comments_on_user_id"
+  add_index "comments", ["book_id"], name: "index_comments_on_book_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
@@ -56,8 +59,8 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.datetime "updated_at"
   end
 
-  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id"
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+  add_index "messages", ["conversation_id"], name: "index_messages_on_conversation_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "roles", force: :cascade do |t|
     t.string   "name"
@@ -67,8 +70,8 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.datetime "updated_at"
   end
 
-  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
-  add_index "roles", ["name"], name: "index_roles_on_name"
+  add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+  add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "statuses", force: :cascade do |t|
     t.text     "content"
@@ -77,7 +80,7 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.integer  "user_id"
   end
 
-  add_index "statuses", ["user_id"], name: "index_statuses_on_user_id"
+  add_index "statuses", ["user_id"], name: "index_statuses_on_user_id", using: :btree
 
   create_table "swaps", force: :cascade do |t|
     t.integer  "user_id"
@@ -89,9 +92,9 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.integer  "other_book_id"
   end
 
-  add_index "swaps", ["book_id"], name: "index_swaps_on_book_id"
-  add_index "swaps", ["other_id"], name: "index_swaps_on_other_id"
-  add_index "swaps", ["user_id"], name: "index_swaps_on_user_id"
+  add_index "swaps", ["book_id"], name: "index_swaps_on_book_id", using: :btree
+  add_index "swaps", ["other_id"], name: "index_swaps_on_other_id", using: :btree
+  add_index "swaps", ["user_id"], name: "index_swaps_on_user_id", using: :btree
 
   create_table "user_friendships", force: :cascade do |t|
     t.integer  "user_id"
@@ -101,13 +104,13 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.string   "state"
   end
 
-  add_index "user_friendships", ["state"], name: "index_user_friendships_on_state"
-  add_index "user_friendships", ["user_id", "friend_id"], name: "index_user_friendships_on_user_id_and_friend_id"
+  add_index "user_friendships", ["state"], name: "index_user_friendships_on_state", using: :btree
+  add_index "user_friendships", ["user_id", "friend_id"], name: "index_user_friendships_on_user_id_and_friend_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "profile_name"
+    t.string   "first_name",             default: "", null: false
+    t.string   "last_name",              default: "", null: false
+    t.string   "profile_name",           default: "", null: false
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
@@ -128,18 +131,18 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
-    t.string   "unconfirmed_email"
+    t.integer  "other_book_id"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "users_roles", id: false, force: :cascade do |t|
     t.integer "user_id"
     t.integer "role_id"
   end
 
-  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
+  add_index "users_roles", ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id", using: :btree
 
   create_table "votes", force: :cascade do |t|
     t.integer  "votable_id"
@@ -153,7 +156,9 @@ ActiveRecord::Schema.define(version: 20160609114856) do
     t.datetime "updated_at"
   end
 
-  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope"
-  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope"
+  add_index "votes", ["votable_id", "votable_type", "vote_scope"], name: "index_votes_on_votable_id_and_votable_type_and_vote_scope", using: :btree
+  add_index "votes", ["voter_id", "voter_type", "vote_scope"], name: "index_votes_on_voter_id_and_voter_type_and_vote_scope", using: :btree
 
+  add_foreign_key "comments", "books"
+  add_foreign_key "comments", "users"
 end

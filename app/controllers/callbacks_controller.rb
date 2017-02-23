@@ -6,7 +6,10 @@ class CallbacksController < Devise::OmniauthCallbacksController
     def facebook
         @user = User.from_omniauth(request.env["omniauth.auth"])
         if @user.sign_in_count == 0
-            UserNotifier.welcome_email(@user).deliver_now #unless @user.invalid?
+            
+            # SISTEMARE MAILER
+            
+            #UserNotifier.welcome_email(@user).deliver_now #unless @user.invalid?
         end
         
         #@user.skip_confirmation! 
